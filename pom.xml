@@ -8,7 +8,10 @@
 
     <description>ycz微服务学习</description>
 
-    <modules></modules>
+    <modules>
+        <!--认证授权-->
+        <module>oauth-center</module>
+    </modules>
 
     <properties>
         <jmh.version>1.23</jmh.version>
