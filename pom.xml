@@ -11,6 +11,10 @@
     <modules>
         <!--认证授权-->
         <module>oauth-center</module>
+        <!--注册中心-->
+        <module>register-center</module>
+        <!--网关-->
+        <module>api-gateway</module>
     </modules>
 
     <properties>
