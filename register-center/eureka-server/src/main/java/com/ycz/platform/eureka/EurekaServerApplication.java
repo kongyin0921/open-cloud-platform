@@ -1,4 +1,4 @@
-package com.ycz.platform;
+package com.ycz.platform.eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

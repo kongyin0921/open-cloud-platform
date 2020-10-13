@@ -1,4 +1,4 @@
-package com.ycz.platform.listener;
+package com.ycz.platform.eureka.listener;
 
 
 import com.netflix.discovery.shared.Applications;

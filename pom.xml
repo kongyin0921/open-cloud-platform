@@ -18,14 +18,20 @@
     <description>学习云平台</description>
 
     <modules>
-        <module>oauth-center</module>
+        <!--支撑内部工具-->
+        <module>inner-intergration</module>
+        <!--注册中心-->
         <module>register-center</module>
+        <!--认证中心-->
+        <module>oauth-center</module>
+        <!--业务网关-->
         <module>api-gateway</module>
     </modules>
 
     <properties>
         <revision>1.0.0</revision>
         <java.version>1.8</java.version>
+        <jasypt.version>1.14</jasypt.version>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
         <flatten-version>1.1.0</flatten-version>
@@ -57,12 +63,6 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
             </dependency>
 
         </dependencies>
