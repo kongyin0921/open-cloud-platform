@@ -1,4 +1,4 @@
-package com.open.capacity.redis;
+package com.ycz.platform.redis;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,4 +1,4 @@
-package com.open.capacity.redis;
+package com.ycz.platform.redis;
 
 import io.lettuce.core.RedisClient;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
@@ -41,5 +41,6 @@ public class RedisAutoConfig {
         LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory();
         return lettuceConnectionFactory;
     }
+
 
 }
