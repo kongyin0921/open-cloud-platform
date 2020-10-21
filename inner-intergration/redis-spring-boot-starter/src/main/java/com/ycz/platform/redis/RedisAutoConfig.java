@@ -1,15 +1,28 @@
 package com.ycz.platform.redis;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.ycz.platform.redis.serializer.RedisObjectSerializer;
-import io.lettuce.core.RedisClient;
-import io.lettuce.core.cluster.ClusterClientOptions;
-import io.lettuce.core.cluster.ClusterTopologyRefreshOptions;
+import com.ycz.platform.redis.util.RedisUtil;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Sentinel;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -17,28 +30,34 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.Resource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
-import org.springframework.data.redis.connection.*;
+import org.springframework.data.redis.connection.RedisClusterConfiguration;
+import org.springframework.data.redis.connection.RedisConfiguration;
+import org.springframework.data.redis.connection.RedisNode;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Method;
-import java.time.Duration;
-import java.util.*;
+import io.lettuce.core.RedisClient;
+import io.lettuce.core.cluster.ClusterClientOptions;
+import io.lettuce.core.cluster.ClusterTopologyRefreshOptions;
 
 /**
- * redis自动配置
- * @author kong
- * @date 2020-10-14 21:20
+ * @author 作者 owen
+ * @version 创建时间：2017年04月23日 下午20:01:06 类说明 redis自动装配
  */
 @Configuration
 @EnableCaching
@@ -66,7 +85,7 @@ public class RedisAutoConfig {
         LettuceClientConfiguration clientConfig = null;
         if (redisProperties.getSentinel() != null) {
             // 哨兵配置
-            Method nodesMethod = ReflectionUtils.findMethod(RedisProperties.Sentinel.class, "getNodes");
+            Method nodesMethod = ReflectionUtils.findMethod(Sentinel.class, "getNodes");
             Object nodesValue = ReflectionUtils.invokeMethod(nodesMethod, redisProperties.getSentinel());
 
             String[] nodes = null;
@@ -214,6 +233,96 @@ public class RedisAutoConfig {
         return redisTemplate;
     }
 
+    @Bean
+    public HashOperations<String, String, String> hashOperations(StringRedisTemplate stringRedisTemplate) {
+        return stringRedisTemplate.opsForHash();
+    }
+
+    /**
+     * redis工具类
+     */
+    @Bean("redisUtil")
+    public RedisUtil redisUtil(LettuceConnectionFactory lettuceConnectionFactory,
+                               StringRedisTemplate stringRedisTemplate, HashOperations<String, String, String> hashOperations) {
+        RedisUtil redisUtil = new RedisUtil(lettuceConnectionFactory, stringRedisTemplate, hashOperations);
+        return redisUtil;
+    }
+
+    @Bean(destroyMethod = "shutdown")
+    @ConditionalOnProperty(name = "spring.redis.redisson.enable", matchIfMissing = false, havingValue = "true")
+    @ConditionalOnMissingBean(RedissonClient.class)
+    public RedissonClient redissonClient() throws IOException {
+        Config config = null;
+        Method clusterMethod = ReflectionUtils.findMethod(RedisProperties.class, "getCluster");
+        Method timeoutMethod = ReflectionUtils.findMethod(RedisProperties.class, "getTimeout");
+        Object timeoutValue = ReflectionUtils.invokeMethod(timeoutMethod, redisProperties);
+        int timeout;
+        if (null == timeoutValue) {
+            timeout = 60000;
+        } else if (!(timeoutValue instanceof Integer)) {
+            Method millisMethod = ReflectionUtils.findMethod(timeoutValue.getClass(), "toMillis");
+            timeout = ((Long) ReflectionUtils.invokeMethod(millisMethod, timeoutValue)).intValue();
+        } else {
+            timeout = (Integer) timeoutValue;
+        }
+        // spring.redis.redisson.config=classpath:redisson.yaml
+        if (redissonProperties.getConfig() != null) {
+
+            try {
+                InputStream is = getConfigStream();
+                config = Config.fromJSON(is);
+            } catch (IOException e) {
+                // trying next format
+                try {
+                    InputStream is = getConfigStream();
+                    config = Config.fromYAML(is);
+                } catch (IOException ioe) {
+                    throw new IllegalArgumentException("Can't parse config", ioe);
+                }
+            }
+        } else if (redisProperties.getSentinel() != null) {
+            // 哨兵配置
+            Method nodesMethod = ReflectionUtils.findMethod(Sentinel.class, "getNodes");
+            Object nodesValue = ReflectionUtils.invokeMethod(nodesMethod, redisProperties.getSentinel());
+
+            String[] nodes;
+            if (nodesValue instanceof String) {
+                nodes = convert(Arrays.asList(((String) nodesValue).split(",")));
+            } else {
+                nodes = convert((List<String>) nodesValue);
+            }
+
+            config = new Config();
+            config.useSentinelServers().setMasterName(redisProperties.getSentinel().getMaster())
+                    .addSentinelAddress(nodes).setDatabase(redisProperties.getDatabase()).setConnectTimeout(timeout)
+                    .setPassword(redisProperties.getPassword());
+        } else if (clusterMethod != null && ReflectionUtils.invokeMethod(clusterMethod, redisProperties) != null) {
+            // 集群配置
+            Object clusterObject = ReflectionUtils.invokeMethod(clusterMethod, redisProperties);
+            Method nodesMethod = ReflectionUtils.findMethod(clusterObject.getClass(), "getNodes");
+            List<String> nodesObject = (List) ReflectionUtils.invokeMethod(nodesMethod, clusterObject);
+            String[] nodes = convert(nodesObject);
+            config = new Config();
+            config.useClusterServers().addNodeAddress(nodes).setConnectTimeout(timeout)
+                    .setPassword(redisProperties.getPassword());
+        } else {
+            // 单机redssion默认配置
+            config = new Config();
+            String prefix = "redis://";
+            Method method = ReflectionUtils.findMethod(RedisProperties.class, "isSsl");
+            if (method != null && (Boolean) ReflectionUtils.invokeMethod(method, redisProperties)) {
+                prefix = "rediss://";
+            }
+
+            config.useSingleServer().setAddress(prefix + redisProperties.getHost() + ":" + redisProperties.getPort())
+                    .setConnectTimeout(timeout).setDatabase(redisProperties.getDatabase())
+                    .setPassword(redisProperties.getPassword());
+
+        }
+
+        return Redisson.create(config);
+    }
+
     private String[] convert(List<String> nodesObject) {
         List<String> nodes = new ArrayList<String>(nodesObject.size());
         for (String node : nodesObject) {
@@ -224,6 +333,12 @@ public class RedisAutoConfig {
             }
         }
         return nodes.toArray(new String[nodes.size()]);
+    }
+
+    private InputStream getConfigStream() throws IOException {
+        Resource resource = ctx.getResource(redissonProperties.getConfig());
+        InputStream is = resource.getInputStream();
+        return is;
     }
 
 }
