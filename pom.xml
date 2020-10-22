@@ -35,9 +35,11 @@
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
         <flatten-version>1.1.0</flatten-version>
-        <docker.host>http://59.110.164.254:5555</docker.host>
-        <docker.image.prefix>owenwangwen</docker.image.prefix>
+        <docker.host>http://127.0.0.1:2375</docker.host>
+        <docker.image.prefix>kong</docker.image.prefix>
         <core.version>1.0.0</core.version>
+        <hutool.version>5.1.0</hutool.version>
+        <fastjson.version>1.2.70</fastjson.version>
         <spring-platform.version>Cairo-SR3</spring-platform.version>
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
         <spring-security.version>5.1.1.RELEASE</spring-security.version>
@@ -45,6 +47,12 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
