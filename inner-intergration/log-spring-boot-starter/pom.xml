@@ -40,12 +40,14 @@
         <dependency>
             <groupId>com.ycz.platform</groupId>
             <artifactId>common-spring-boot-starter</artifactId>
+            <version>1.0.0</version>
             <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>com.ycz.platform</groupId>
             <artifactId>db-spring-boot-starter</artifactId>
+            <version>1.0.0</version>
             <optional>true</optional>
         </dependency>
 
