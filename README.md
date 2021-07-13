@@ -17,4 +17,4 @@
 * 个人博客：[http://blog.kongyin.ltd/](http://blog.kongyin.ltd/)
 * 个人邮箱：kongyin0921@163.com
 * 个人公众号：[程序员Kong](https://gitee.com/kongyin/picture_bed/raw/master/wx_picture/20210211181215.png)
-* 学习笔记：http://kongyin.gitee.io/learning-notes/
+* 学习笔记：http://kongyin0921.github.io/learning-notes/
