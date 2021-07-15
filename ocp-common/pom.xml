@@ -16,6 +16,8 @@
         <module>ocp-common-datasource</module>
         <module>ocp-common-job</module>
         <module>ocp-common-redis</module>
+        <module>ocp-common-mybatis</module>
+        <module>ocp-common-zookeeper</module>
     </modules>
 
 

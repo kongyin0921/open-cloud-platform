@@ -13,7 +13,9 @@
         <spring-cloud.version>2020.0.3</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <jasypt.version>2.1.0</jasypt.version>
+        <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <dynamic-ds.version>3.4.0</dynamic-ds.version>
+        <hutool.version>5.7.3</hutool.version>
     </properties>
 
     <dependencyManagement>
@@ -54,8 +56,19 @@
             <!--mybatis-->
             <dependency>
                 <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
                 <version>${dynamic-ds.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
