@@ -13,4 +13,11 @@
     <artifactId>ocp-common-core</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
 </project>
