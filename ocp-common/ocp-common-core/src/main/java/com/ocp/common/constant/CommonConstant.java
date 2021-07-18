@@ -7,6 +7,10 @@ package com.ocp.common.constant;
  * blog: http://blog.kongyin.ltd
  */
 public interface CommonConstant {
+    /**
+     * 锁
+     */
+    String LOCK_KEY_PREFIX = "LOCK_KEY";
 
     /**
      * 文件分隔符
