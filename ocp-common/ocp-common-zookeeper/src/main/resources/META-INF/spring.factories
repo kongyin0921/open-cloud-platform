@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.ocp.common.zookeeper.ZookeeperAutoConfiguration
