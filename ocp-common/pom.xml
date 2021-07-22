@@ -18,6 +18,7 @@
         <module>ocp-common-redis</module>
         <module>ocp-common-mybatis</module>
         <module>ocp-common-zookeeper</module>
+        <module>ocp-common-elasticsearch</module>
     </modules>
 
 
