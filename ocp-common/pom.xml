@@ -19,7 +19,7 @@
         <module>ocp-common-mybatis</module>
         <module>ocp-common-zookeeper</module>
         <module>ocp-common-elasticsearch</module>
-        <module>ocp-common-auth</module>
+        <module>ocp-common-security</module>
     </modules>
 
 
