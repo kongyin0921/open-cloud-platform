@@ -1,4 +1,4 @@
-package com.ocp.common.model;
+package com.ocp.common.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

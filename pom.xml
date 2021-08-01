@@ -45,7 +45,17 @@
         <dependencies>
             <dependency>
                 <groupId>com.open</groupId>
+                <artifactId>ocp-common-log</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.open</groupId>
                 <artifactId>ocp-common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.open</groupId>
+                <artifactId>ocp-common-redis</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

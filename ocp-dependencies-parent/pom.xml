@@ -16,13 +16,17 @@
         <spring-cloud-oauth2.version>2.2.4.RELEASE</spring-cloud-oauth2.version>
         <security-oauth2.version>2.3.8.RELEASE</security-oauth2.version>
         <security-jwt.version>1.1.0.RELEASE</security-jwt.version>
+        <spring-social-security.version>1.1.6.RELEASE</spring-social-security.version>
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
+        <mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
         <dynamic-ds.version>3.4.0</dynamic-ds.version>
         <redisson-starter.version>3.14.1</redisson-starter.version>
         <xxl-job.version>2.3.0</xxl-job.version>
         <hutool.version>5.7.3</hutool.version>
         <commons-io.version>2.7</commons-io.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <transmittable.version>2.12.1</transmittable.version>
+        <dubbo.version>2.7.8</dubbo.version>
     </properties>
 
     <dependencyManagement>
@@ -74,6 +78,11 @@
                 <artifactId>spring-security-jwt</artifactId>
                 <version>${security-jwt.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.social</groupId>
+                <artifactId>spring-social-security</artifactId>
+                <version>${spring-social-security.version}</version>
+            </dependency>
 
 
             <!--mybatis-->
@@ -86,6 +95,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
                 <version>${dynamic-ds.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
 
             <!-- 在Redis基础上的一个Java实用工具包 -->
@@ -126,6 +140,18 @@
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>${commons-beanutils.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

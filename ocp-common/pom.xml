@@ -20,6 +20,7 @@
         <module>ocp-common-zookeeper</module>
         <module>ocp-common-elasticsearch</module>
         <module>ocp-common-security</module>
+        <module>ocp-common-log</module>
     </modules>
 
 
