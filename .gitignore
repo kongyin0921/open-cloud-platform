@@ -56,3 +56,6 @@ target/
 Thumbs.db
 Servers
 .metadata
+
+## nacos
+nacos_work

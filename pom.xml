@@ -15,6 +15,7 @@
     <modules>
         <module>ocp-common</module>
         <module>ocp-gateway</module>
+        <module>ocp-register</module>
     </modules>
 
     <dependencies>
@@ -88,7 +89,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-
     </build>
 
     <repositories>
