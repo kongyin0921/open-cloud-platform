@@ -34,12 +34,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ServletComponentScan
 @EnableScheduling
 @Slf4j
-public class NacosApp {
+public class NacosApplication {
 
     public static void main(String[] args) {
         //初始化
         initEnv();
-        SpringApplication.run(NacosApp.class, args);
+        SpringApplication.run(NacosApplication.class, args);
     }
 
     /**

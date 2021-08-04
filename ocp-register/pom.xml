@@ -13,38 +13,16 @@
     <description>注册配置中心</description>
 
     <properties>
-        <nacos.version>2.0.2</nacos.version>
+        <nacos.version>2.0.3</nacos.version>
     </properties>
 
     <dependencies>
-
-        <!--<dependency>
-            <groupId>com.pig4cloud.nacos</groupId>
-            <artifactId>nacos-config</artifactId>
-            <version>${nacos.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.pig4cloud.nacos</groupId>
-            <artifactId>nacos-naming</artifactId>
-            <version>${nacos.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.pig4cloud.nacos</groupId>
-            <artifactId>nacos-istio</artifactId>
-            <version>${nacos.version}</version>
-        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/com.ieooc.nacos/nacos-config -->
         <dependency>
             <groupId>com.ieooc.nacos</groupId>
             <artifactId>nacos-config</artifactId>
-            <version>2.0.3</version>
+            <version>${nacos.version}</version>
         </dependency>
 
         <dependency>
@@ -56,14 +34,14 @@
         <dependency>
             <groupId>com.ieooc.nacos</groupId>
             <artifactId>nacos-naming</artifactId>
-            <version>2.0.3</version>
+            <version>${nacos.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.ieooc.nacos/nacos-istio -->
         <dependency>
             <groupId>com.ieooc.nacos</groupId>
             <artifactId>nacos-istio</artifactId>
-            <version>2.0.3</version>
+            <version>${nacos.version}</version>
         </dependency>
 
 
@@ -102,16 +80,5 @@
                 </excludes>
             </resource>
         </resources>
-
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>

@@ -10,8 +10,8 @@
     <artifactId>ocp-dependencies-parent</artifactId>
     <properties>
         <spring-boot.version>2.5.2</spring-boot.version>
-        <spring-cloud.version>2020.0.3</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+        <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.6.RELEASE</spring-cloud-alibaba.version>
         <jasypt.version>2.1.0</jasypt.version>
         <spring-cloud-oauth2.version>2.2.4.RELEASE</spring-cloud-oauth2.version>
         <security-oauth2.version>2.3.8.RELEASE</security-oauth2.version>
@@ -22,11 +22,16 @@
         <dynamic-ds.version>3.4.0</dynamic-ds.version>
         <redisson-starter.version>3.14.1</redisson-starter.version>
         <xxl-job.version>2.3.0</xxl-job.version>
+        <easyCaptcha.version>1.6.2</easyCaptcha.version>
         <hutool.version>5.7.3</hutool.version>
         <commons-io.version>2.7</commons-io.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <transmittable.version>2.12.1</transmittable.version>
         <dubbo.version>2.7.8</dubbo.version>
+        <curator.version>5.1.0</curator.version>
+        <spring-cloud-ribbon.version>2.2.9.RELEASE</spring-cloud-ribbon.version>
+        <spring-boot-dependencies.version>2.3.12.RELEASE</spring-boot-dependencies.version>
+        <docker-maven-plugin.version>1.2.2</docker-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -117,6 +122,13 @@
                 <version>${xxl-job.version}</version>
             </dependency>
 
+            <!-- 验证码生成工具 -->
+            <dependency>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${easyCaptcha.version}</version>
+            </dependency>
+
             <!-- hutool java工具类库  -->
             <dependency>
                 <groupId>cn.hutool</groupId>
@@ -153,6 +165,61 @@
                 <artifactId>dubbo</artifactId>
                 <version>${dubbo.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+                <version>${spring-cloud-ribbon.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <target>1.8</target>
+                        <source>1.8</source>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <archive>
+                            <addMavenDescriptor>false</addMavenDescriptor>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-dependencies.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

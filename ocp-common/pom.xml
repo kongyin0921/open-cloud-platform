@@ -21,6 +21,7 @@
         <module>ocp-common-elasticsearch</module>
         <module>ocp-common-security</module>
         <module>ocp-common-log</module>
+        <module>ocp-common-feign</module>
     </modules>
 
 
