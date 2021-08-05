@@ -8,6 +8,8 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <artifactId>ocp-dependencies-parent</artifactId>
+    <description>依赖管理</description>
+
     <properties>
         <spring-boot.version>2.5.2</spring-boot.version>
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>

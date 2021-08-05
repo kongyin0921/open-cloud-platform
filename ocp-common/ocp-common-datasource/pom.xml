@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
     <artifactId>ocp-common-datasource</artifactId>
+    <description>动态切换数据源</description>
 
     <dependencies>
         <!--mybatis-->
