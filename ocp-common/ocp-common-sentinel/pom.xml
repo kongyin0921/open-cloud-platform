@@ -9,35 +9,43 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ocp-common-security</artifactId>
-    <description>安全通用组件</description>
+    <artifactId>ocp-common-sentinel</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.open</groupId>
-            <artifactId>ocp-common-redis</artifactId>
+            <artifactId>ocp-common-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-            <optional>true</optional>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

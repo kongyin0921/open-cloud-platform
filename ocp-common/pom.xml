@@ -5,7 +5,7 @@
     <parent>
         <artifactId>open-cloud-platform</artifactId>
         <groupId>com.open</groupId>
-        <version>1.0.0</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -23,6 +23,7 @@
         <module>ocp-common-security</module>
         <module>ocp-common-log</module>
         <module>ocp-common-feign</module>
+        <module>ocp-common-sentinel</module>
     </modules>
 
 
