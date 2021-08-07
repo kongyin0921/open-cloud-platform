@@ -13,6 +13,37 @@
     <description>认证中心</description>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.open</groupId>
+            <artifactId>ocp-common-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.open</groupId>
+            <artifactId>ocp-common-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.open</groupId>
+            <artifactId>ocp-common-mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.open</groupId>
+            <artifactId>ocp-common-feign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.open</groupId>
+            <artifactId>ocp-common-sentinel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.open</groupId>
+            <artifactId>ocp-common-redis</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>

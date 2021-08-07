@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.ocp.common.feign.fallback.UserServiceFallbackFactory,\
+com.ocp.common.lock.LockAspect,\
+com.ocp.common.filter.TenantFilter
