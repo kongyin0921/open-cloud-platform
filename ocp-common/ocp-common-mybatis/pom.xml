@@ -13,10 +13,9 @@
     <description>mybatis 封装</description>
 
     <dependencies>
-        <!--hutool-->
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
+            <groupId>com.open</groupId>
+            <artifactId>ocp-common-core</artifactId>
         </dependency>
         <!--mybatis-->
         <dependency>
@@ -33,10 +32,6 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
         </dependency>
     </dependencies>
 

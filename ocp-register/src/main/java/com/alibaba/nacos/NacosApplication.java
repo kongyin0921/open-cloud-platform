@@ -57,5 +57,3 @@ public class NacosApplication {
         System.setProperty(ConfigConstants.LOG_BASEDIR, "./logs");
     }
 }
-
-sentinel

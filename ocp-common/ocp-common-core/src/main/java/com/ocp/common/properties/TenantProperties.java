@@ -15,7 +15,7 @@ import java.util.List;
  * blog: http://blog.kongyin.ltd
  */
 @Data
-//@ConfigurationProperties(prefix = "ocp.tenant")
+@ConfigurationProperties(prefix = "ocp.tenant")
 @RefreshScope
 public class TenantProperties {
     /**
