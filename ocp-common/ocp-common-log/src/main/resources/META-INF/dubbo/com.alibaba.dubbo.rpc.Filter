@@ -1,0 +1,1 @@
+logTrace=com.ocp.common.log.trace.DubboTraceFilter

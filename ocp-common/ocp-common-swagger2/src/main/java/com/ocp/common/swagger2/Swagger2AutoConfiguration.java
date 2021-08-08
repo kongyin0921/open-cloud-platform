@@ -30,6 +30,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
+ * swagger2 自动配置
  * @author kong
  * @date 2021/08/08 11:45
  * blog: http://blog.kongyin.ltd
@@ -46,7 +47,7 @@ public class Swagger2AutoConfiguration implements BeanFactoryAware {
 
     @Bean
     @ConditionalOnMissingBean
-    public Swagger2Properties swaggerProperties() {
+    public Swagger2Properties swagger2Properties() {
         return new Swagger2Properties();
     }
 
