@@ -24,6 +24,7 @@
         <module>ocp-common-log</module>
         <module>ocp-common-feign</module>
         <module>ocp-common-sentinel</module>
+        <module>ocp-common-swagger2</module>
     </modules>
 
 
