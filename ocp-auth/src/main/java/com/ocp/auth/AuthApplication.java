@@ -1,9 +1,10 @@
 package com.ocp.auth;
 
+import com.ocp.feign.annotation.EnableFeignInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * 认证服务
@@ -12,7 +13,8 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * blog: http://blog.kongyin.ltd
  */
 
-@EnableRedisHttpSession
+@EnableFeignClients
+@EnableFeignInterceptor
 @EnableDiscoveryClient
 @SpringBootApplication
 public class AuthApplication {

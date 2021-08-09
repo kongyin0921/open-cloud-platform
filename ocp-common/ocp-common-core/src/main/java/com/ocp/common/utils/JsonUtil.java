@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
 import com.ocp.common.constant.CommonConstant;
+import com.ocp.common.constant.DateConstants;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -44,8 +45,8 @@ public class JsonUtil {
         // 使用bean名称
         MAPPER.enable(MapperFeature.USE_STD_BEAN_NAMING);
         // 所有日期格式都统一为固定格式
-        MAPPER.setDateFormat(new SimpleDateFormat(CommonConstant.DATETIME_FORMAT));
-        MAPPER.setTimeZone(TimeZone.getTimeZone(CommonConstant.TIME_ZONE_GMT8));
+        MAPPER.setDateFormat(new SimpleDateFormat(DateConstants.DATETIME_FORMAT));
+        MAPPER.setTimeZone(TimeZone.getTimeZone(DateConstants.TIME_ZONE_GMT8));
     }
 
     /**

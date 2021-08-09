@@ -1,7 +1,7 @@
 package com.ocp.feign.config;
 
 import cn.hutool.core.util.StrUtil;
-import com.ocp.common.constant.SecurityConstants;
+import com.ocp.common.constant.MessageHeaderConstants;
 import com.ocp.common.context.TenantContextHolder;
 import feign.RequestInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -19,7 +19,7 @@ public class FeignInterceptorConfig {
         return template -> {
             String tenant = TenantContextHolder.getTenant();
             if (StrUtil.isNotEmpty(tenant)) {
-                template.header(SecurityConstants.TENANT_HEADER, tenant);
+                template.header(MessageHeaderConstants.TENANT_HEADER, tenant);
             }
         };
     }

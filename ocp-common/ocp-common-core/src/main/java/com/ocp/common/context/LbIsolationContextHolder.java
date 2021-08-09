@@ -9,6 +9,9 @@ import com.alibaba.ttl.TransmittableThreadLocal;
  * blog: http://blog.kongyin.ltd
  */
 public class LbIsolationContextHolder {
+    /**
+     * 支持父子线程之间的数据传递
+     */
     private static final ThreadLocal<String> VERSION_CONTEXT = new TransmittableThreadLocal<>();
 
     public static void setVersion(String version) {

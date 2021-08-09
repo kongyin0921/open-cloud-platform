@@ -62,6 +62,11 @@
             </dependency>
             <dependency>
                 <groupId>com.open</groupId>
+                <artifactId>ocp-common-swagger2</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.open</groupId>
                 <artifactId>ocp-common-sentinel</artifactId>
                 <version>${project.version}</version>
             </dependency>

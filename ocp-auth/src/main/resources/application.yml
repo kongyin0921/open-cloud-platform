@@ -1,0 +1,10 @@
+server:
+  port: 8800
+spring:
+  application:
+    name: auth-server
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:127.0.0.1}:${MYSQL_PORT:3306}/${MYSQL_DB:oauth-center}?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+    username: ${MYSQL-USER:root}
+    password: ${MYSQL-PWD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver

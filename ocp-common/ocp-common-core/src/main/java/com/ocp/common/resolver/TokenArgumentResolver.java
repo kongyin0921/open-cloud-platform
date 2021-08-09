@@ -2,7 +2,7 @@ package com.ocp.common.resolver;
 
 import cn.hutool.core.util.StrUtil;
 import com.ocp.common.annotation.LoginUser;
-import com.ocp.common.constant.SecurityConstants;
+import com.ocp.common.constant.MessageHeaderConstants;
 import com.ocp.common.feign.UserService;
 import com.ocp.common.model.SysRole;
 import com.ocp.common.model.SysUser;
@@ -58,11 +58,11 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
         LoginUser loginUser = methodParameter.getParameterAnnotation(LoginUser.class);
         boolean isFull = loginUser.isFull();
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
-        String userId = request.getHeader(SecurityConstants.USER_ID_HEADER);
-        String username = request.getHeader(SecurityConstants.USER_HEADER);
-        String roles = request.getHeader(SecurityConstants.ROLE_HEADER);
+        String userId = request.getHeader(MessageHeaderConstants.USER_ID_HEADER);
+        String username = request.getHeader(MessageHeaderConstants.USER_HEADER);
+        String roles = request.getHeader(MessageHeaderConstants.ROLE_HEADER);
         //账号类型
-        String accountType = request.getHeader(SecurityConstants.ACCOUNT_TYPE_HEADER);
+        String accountType = request.getHeader(MessageHeaderConstants.ACCOUNT_TYPE_HEADER);
         if (StrUtil.isBlank(username)) {
             log.warn("resolveArgument error username is empty");
             return null;

@@ -1,7 +1,7 @@
 package com.ocp.feign.config;
 
 import com.ocp.common.constant.CommonConstant;
-import com.ocp.common.constant.SecurityConstants;
+import com.ocp.common.constant.MessageHeaderConstants;
 import feign.RequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -24,10 +24,10 @@ public class FeignHttpInterceptorConfig {
 
     @PostConstruct
     public void initialize() {
-        requestHeaders.add(SecurityConstants.USER_ID_HEADER);
-        requestHeaders.add(SecurityConstants.USER_HEADER);
-        requestHeaders.add(SecurityConstants.ROLE_HEADER);
-        requestHeaders.add(CommonConstant.O_C_P_VERSION);
+        requestHeaders.add(MessageHeaderConstants.USER_ID_HEADER);
+        requestHeaders.add(MessageHeaderConstants.USER_HEADER);
+        requestHeaders.add(MessageHeaderConstants.ROLE_HEADER);
+        requestHeaders.add(MessageHeaderConstants.O_C_P_VERSION);
     }
 
     /**

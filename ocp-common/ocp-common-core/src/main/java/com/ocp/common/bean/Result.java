@@ -17,10 +17,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Result<T> implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * 响应数据
      */
-    private T datas;
+    private T data;
     /**
      * 响应码
      */
@@ -30,8 +33,8 @@ public class Result<T> implements Serializable {
      */
     private String resp_msg;
 
-    public static <T> Result<T> of(T datas, Integer code, String msg) {
-        return new Result<>(datas, code, msg);
+    public static <T> Result<T> of(T data, Integer code, String msg) {
+        return new Result<>(data, code, msg);
     }
 
     public static <T> Result<T> succeed(String msg) {

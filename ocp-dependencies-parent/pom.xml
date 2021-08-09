@@ -12,8 +12,11 @@
 
     <properties>
         <revision>1.0.0</revision>
-        <java.version>1.8</java.version>
-        <spring-boot.version>2.5.2</spring-boot.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>8</java.version>
+        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
         <spring-cloud-alibaba.version>2.2.6.RELEASE</spring-cloud-alibaba.version>
         <jasypt.version>2.1.0</jasypt.version>
@@ -21,7 +24,6 @@
         <security-oauth2.version>2.3.8.RELEASE</security-oauth2.version>
         <security-jwt.version>1.1.0.RELEASE</security-jwt.version>
         <spring-social-security.version>1.1.6.RELEASE</spring-social-security.version>
-        <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
         <dynamic-ds.version>3.4.0</dynamic-ds.version>
         <redisson-starter.version>3.14.1</redisson-starter.version>
@@ -36,6 +38,7 @@
         <spring-cloud-ribbon.version>2.2.9.RELEASE</spring-cloud-ribbon.version>
         <easypoi.version>4.1.3</easypoi.version>
         <knife4j.version>2.0.5</knife4j.version>
+        <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <poi.version>4.1.1</poi.version>
         <spring-boot-dependencies.version>2.3.12.RELEASE</spring-boot-dependencies.version>
         <docker-maven-plugin.version>1.2.2</docker-maven-plugin.version>
@@ -101,18 +104,24 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-                <version>${dynamic-ds.version}</version>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
                 <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-ds.version}</version>
+            </dependency>
+
 
             <!-- 在Redis基础上的一个Java实用工具包 -->
             <dependency>
@@ -216,6 +225,12 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-micro-spring-boot-starter</artifactId>
                 <version>${knife4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -16,6 +16,12 @@
         <dependency>
             <groupId>com.open</groupId>
             <artifactId>ocp-common-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>HdrHistogram</artifactId>
+                    <groupId>org.hdrhistogram</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

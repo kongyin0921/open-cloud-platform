@@ -3,6 +3,7 @@ package com.ocp.feign.ribbon.loadbalancer.filter;
 import cn.hutool.core.util.StrUtil;
 import com.ocp.common.constant.CommonConstant;
 import com.ocp.common.constant.ConfigConstants;
+import com.ocp.common.constant.MessageHeaderConstants;
 import com.ocp.common.context.LbIsolationContextHolder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -35,7 +36,7 @@ public class LbIsolationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws IOException, ServletException {
         try {
-            String version = request.getHeader(CommonConstant.O_C_P_VERSION);
+            String version = request.getHeader(MessageHeaderConstants.O_C_P_VERSION);
             if(StrUtil.isNotEmpty(version)){
                 LbIsolationContextHolder.setVersion(version);
             }

@@ -1,6 +1,6 @@
 package com.ocp.common.log.aspect;
 
-import com.ocp.common.constant.SecurityConstants;
+import com.ocp.common.constant.MessageHeaderConstants;
 import com.ocp.common.log.annotation.AuditLog;
 import com.ocp.common.log.model.Audit;
 import com.ocp.common.log.properties.AuditLogProperties;
@@ -103,9 +103,9 @@ public class AuditLogAspect {
 
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        String userId = request.getHeader(SecurityConstants.USER_ID_HEADER);
-        String userName = request.getHeader(SecurityConstants.USER_HEADER);
-        String clientId = request.getHeader(SecurityConstants.TENANT_HEADER);
+        String userId = request.getHeader(MessageHeaderConstants.USER_ID_HEADER);
+        String userName = request.getHeader(MessageHeaderConstants.USER_HEADER);
+        String clientId = request.getHeader(MessageHeaderConstants.TENANT_HEADER);
         audit.setUserId(userId);
         audit.setUserName(userName);
         audit.setClientId(clientId);

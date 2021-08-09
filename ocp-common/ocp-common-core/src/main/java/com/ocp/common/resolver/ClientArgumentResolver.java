@@ -2,7 +2,7 @@ package com.ocp.common.resolver;
 
 import cn.hutool.core.util.StrUtil;
 import com.ocp.common.annotation.LoginClient;
-import com.ocp.common.constant.SecurityConstants;
+import com.ocp.common.constant.MessageHeaderConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -44,7 +44,7 @@ public class ClientArgumentResolver implements HandlerMethodArgumentResolver {
                                   NativeWebRequest nativeWebRequest,
                                   WebDataBinderFactory webDataBinderFactory) {
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
-        String clientId = request.getHeader(SecurityConstants.TENANT_HEADER);
+        String clientId = request.getHeader(MessageHeaderConstants.TENANT_HEADER);
         if (StrUtil.isBlank(clientId)) {
             log.warn("resolveArgument error clientId is empty");
         }
