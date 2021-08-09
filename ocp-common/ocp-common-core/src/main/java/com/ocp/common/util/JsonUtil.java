@@ -1,11 +1,10 @@
-package com.ocp.common.utils;
+package com.ocp.common.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.*;
-import com.ocp.common.constant.CommonConstant;
 import com.ocp.common.constant.DateConstants;
 import org.apache.commons.lang3.StringUtils;
 

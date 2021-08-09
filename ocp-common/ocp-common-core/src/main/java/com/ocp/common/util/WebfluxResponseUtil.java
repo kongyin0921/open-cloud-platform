@@ -1,4 +1,4 @@
-package com.ocp.common.utils;
+package com.ocp.common.util;
 
 import com.ocp.common.bean.Result;
 import org.springframework.core.io.buffer.DataBuffer;

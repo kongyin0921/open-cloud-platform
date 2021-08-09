@@ -1,4 +1,4 @@
-package com.ocp.common.utils;
+package com.ocp.common.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ocp.common.bean.Result;

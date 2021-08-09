@@ -1,4 +1,4 @@
-package com.ocp.common.utils;
+package com.ocp.common.util;
 
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

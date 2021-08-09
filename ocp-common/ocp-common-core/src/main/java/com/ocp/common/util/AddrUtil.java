@@ -1,4 +1,4 @@
-package com.ocp.common.utils;
+package com.ocp.common.util;
 
 import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.ocp.common.config;
 
-import com.ocp.common.utils.PwdEncoderUtil;
+import com.ocp.common.util.PwdEncoderUtil;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;

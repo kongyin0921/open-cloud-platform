@@ -1,7 +1,7 @@
 package com.ocp.common.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ocp.common.utils.ResponseUtil;
+import com.ocp.common.util.ResponseUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.AccessDeniedException;

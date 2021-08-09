@@ -1,4 +1,4 @@
-package com.ocp.common.utils;
+package com.ocp.common.util;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.ExcelImportUtil;

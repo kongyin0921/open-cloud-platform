@@ -6,7 +6,7 @@ import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ocp.common.bean.PageResult;
-import com.ocp.common.utils.JsonUtil;
+import com.ocp.common.util.JsonUtil;
 import lombok.Data;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.elasticsearch.action.search.SearchRequest;

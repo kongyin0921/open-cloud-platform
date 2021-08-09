@@ -1,4 +1,4 @@
-package com.ocp.common.utils;
+package com.ocp.common.util;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
