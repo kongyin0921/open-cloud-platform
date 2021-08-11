@@ -2,7 +2,7 @@ package com.ocp.common.feign;
 
 import com.ocp.common.constant.ServiceNameConstants;
 import com.ocp.common.feign.fallback.UserServiceFallbackFactory;
-import com.ocp.common.model.SysUser;
+import com.ocp.common.entity.SysUser;
 import com.ocp.common.security.userdetails.LoginAppUser;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

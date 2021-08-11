@@ -1,7 +1,7 @@
 package com.ocp.common.security.userdetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ocp.common.model.SysUser;
+import com.ocp.common.entity.SysUser;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;

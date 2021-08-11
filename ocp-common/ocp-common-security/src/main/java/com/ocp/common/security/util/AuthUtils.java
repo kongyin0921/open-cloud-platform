@@ -2,7 +2,7 @@ package com.ocp.common.security.util;
 
 import com.ocp.common.constant.CommonConstant;
 import com.ocp.common.constant.SecurityConstants;
-import com.ocp.common.model.SysUser;
+import com.ocp.common.entity.SysUser;
 import com.ocp.common.security.token.CustomWebAuthenticationDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

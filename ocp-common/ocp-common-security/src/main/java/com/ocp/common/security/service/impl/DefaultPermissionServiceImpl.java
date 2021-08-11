@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.ocp.common.constant.CommonConstant;
 import com.ocp.common.context.TenantContextHolder;
-import com.ocp.common.model.SysMenu;
+import com.ocp.common.entity.SysMenu;
 import com.ocp.common.security.porperties.SecurityProperties;
 import com.ocp.common.security.util.AuthUtils;
 import lombok.extern.slf4j.Slf4j;

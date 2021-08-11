@@ -1,4 +1,4 @@
-package com.ocp.common.model;
+package com.ocp.common.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;

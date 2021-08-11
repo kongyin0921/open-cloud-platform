@@ -1,7 +1,7 @@
 package com.ocp.common.feign.fallback;
 
 import com.ocp.common.feign.UserService;
-import com.ocp.common.model.SysUser;
+import com.ocp.common.entity.SysUser;
 import com.ocp.common.security.userdetails.LoginAppUser;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
