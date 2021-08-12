@@ -1,4 +1,4 @@
-package com.ocp.auth.entity;
+package com.ocp.auth.entity.vo;
 
 import lombok.Data;
 
