@@ -13,16 +13,21 @@
     <description>注册配置中心</description>
 
     <properties>
-        <nacos.version>2.0.3</nacos.version>
+        <nacos.version>2.0.2</nacos.version>
     </properties>
 
     <dependencies>
-
         <!-- https://mvnrepository.com/artifact/com.ieooc.nacos/nacos-config -->
         <dependency>
             <groupId>com.ieooc.nacos</groupId>
             <artifactId>nacos-config</artifactId>
             <version>${nacos.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>simpleclient</artifactId>
+                    <groupId>io.prometheus</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -68,6 +73,10 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
         </dependency>
     </dependencies>
 

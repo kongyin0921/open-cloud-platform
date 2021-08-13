@@ -19,21 +19,6 @@ public interface SecurityConstants {
     String BASE_ROLE = "ROLE_USER";
 
     /**
-     * 默认生成图形验证码宽度
-     */
-    String DEFAULT_IMAGE_WIDTH = "100";
-
-    /**
-     * 默认生成图像验证码高度
-     */
-    String DEFAULT_IMAGE_HEIGHT = "35";
-
-    /**
-     * 默认生成图形验证码长度
-     */
-    String DEFAULT_IMAGE_LENGTH = "4";
-
-    /**
      * 默认生成图形验证码过期时间
      */
     int DEFAULT_IMAGE_EXPIRE = 60;
