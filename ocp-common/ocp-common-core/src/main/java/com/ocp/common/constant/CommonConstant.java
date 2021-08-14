@@ -14,16 +14,13 @@ public interface CommonConstant {
     String PROJECT_VERSION = "1.0.0";
 
     /**
-     * token请求头名称
+     * 注册中心元数据 版本号
      */
-    String TOKEN_HEADER = "Authorization";
+    String METADATA_VERSION = "version";
 
     /**
-     * The access token issued by the authorization server. This value is REQUIRED.
+     * 授权请求类型
      */
-    String ACCESS_TOKEN = "access_token";
-
-
     String BEARER_TYPE = "Bearer";
 
     /**
@@ -91,24 +88,15 @@ public interface CommonConstant {
      */
     String ADMIN_USER_NAME = "admin";
 
+    /**
+     * 默认密码
+     */
     String DEF_USER_PASSWORD = "123456";
 
+    /**
+     * 锁键前缀
+     */
     String LOCK_KEY_PREFIX = "LOCK_KEY";
-
-    /**
-     * 租户id参数
-     */
-    String TENANT_ID_PARAM = "tenantId";
-
-    /**
-     * 日志链路追踪id日志标志
-     */
-    String LOG_TRACE_ID = "traceId";
-
-    /**
-     * 注册中心元数据 版本号
-     */
-    String METADATA_VERSION = "version";
 
     /**
      * 文件分隔符

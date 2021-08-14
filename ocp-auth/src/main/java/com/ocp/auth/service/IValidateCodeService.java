@@ -1,6 +1,5 @@
 package com.ocp.auth.service;
 
-import com.ocp.common.bean.Result;
 
 /**
  * @author kong

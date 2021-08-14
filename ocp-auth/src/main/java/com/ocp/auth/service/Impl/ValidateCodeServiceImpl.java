@@ -3,7 +3,6 @@ package com.ocp.auth.service.Impl;
 import cn.hutool.core.util.RandomUtil;
 import com.ocp.auth.exception.ValidateCodeException;
 import com.ocp.auth.service.IValidateCodeService;
-import com.ocp.common.bean.Result;
 import com.ocp.common.constant.SecurityConstants;
 import com.ocp.common.entity.SysUser;
 import com.ocp.common.feign.UserService;

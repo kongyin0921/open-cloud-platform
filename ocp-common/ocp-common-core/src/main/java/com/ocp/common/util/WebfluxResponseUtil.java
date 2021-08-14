@@ -21,18 +21,18 @@ public class WebfluxResponseUtil {
     /**
      * webflux的response返回json对象
      */
-    public static Mono<Void> responseWriter(ServerWebExchange exchange, int httpStatus, String msg) {
+    /*public static Mono<Void> responseWriter(ServerWebExchange exchange, int httpStatus, String msg) {
         Result result = Result.of(null, httpStatus, msg);
         return responseWrite(exchange, httpStatus, result);
     }
-
+*/
     public static Mono<Void> responseFailed(ServerWebExchange exchange, String msg) {
-        Result result = Result.failed(msg);
+        Result result = Result.error(msg);
         return responseWrite(exchange, HttpStatus.INTERNAL_SERVER_ERROR.value(), result);
     }
 
     public static Mono<Void> responseFailed(ServerWebExchange exchange, int httpStatus, String msg) {
-        Result result = Result.failed(msg);
+        Result result = Result.error(msg);
         return responseWrite(exchange, httpStatus, result);
     }
 

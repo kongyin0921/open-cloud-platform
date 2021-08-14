@@ -32,7 +32,7 @@ public class SentinelAutoConfigure {
         public BlockExceptionHandler webmvcBlockExceptionHandler() {
             return (request, response, e) -> {
                 response.setStatus(429);
-                Result result = Result.failed(e.getMessage());
+                Result result = Result.error(e.getMessage());
                 response.getWriter().print(JSONUtil.toJsonStr(result));
             };
         }
@@ -50,7 +50,7 @@ public class SentinelAutoConfigure {
             return (exchange, t) ->
                     ServerResponse.status(HttpStatus.TOO_MANY_REQUESTS)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .body(BodyInserters.fromValue(Result.failed(t.getMessage())));
+                            .body(BodyInserters.fromValue(Result.error(t.getMessage())));
         }
     }
 

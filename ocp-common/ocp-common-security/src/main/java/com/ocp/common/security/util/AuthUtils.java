@@ -1,6 +1,6 @@
 package com.ocp.common.security.util;
 
-import com.ocp.common.constant.CommonConstant;
+import com.ocp.common.constant.MessageHeaderConstants;
 import com.ocp.common.constant.SecurityConstants;
 import com.ocp.common.entity.SysUser;
 import com.ocp.common.security.token.CustomWebAuthenticationDetails;
@@ -51,7 +51,7 @@ public class AuthUtils {
      * @return
      */
     private static String extractHeaderToken(HttpServletRequest request) {
-        Enumeration<String> headers = request.getHeaders(CommonConstant.TOKEN_HEADER);
+        Enumeration<String> headers = request.getHeaders(MessageHeaderConstants.TOKEN_HEADER);
         while (headers.hasMoreElements()) {
             String value = headers.nextElement();
             if ((value.startsWith(OAuth2AccessToken.BEARER_TYPE))) {

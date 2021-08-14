@@ -1,13 +1,13 @@
 package com.ocp.common.exception;
 
 import com.ocp.common.bean.Result;
+import com.ocp.common.code.CodeMsgs;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -89,7 +89,7 @@ public class DefaultExceptionAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(IdempotencyException.class)
     public Result handleException(IdempotencyException e) {
-        return Result.failed(e.getMessage());
+        return Result.obtain(CodeMsgs.REQUEST_SUCCESS,e.getMessage());
     }
 
     /**
@@ -104,6 +104,7 @@ public class DefaultExceptionAdvice {
 
     private Result defHandler(String msg, Exception e) {
         log.error(msg, e);
-        return Result.failed(msg);
+        String message = e.getLocalizedMessage();
+        return Result.obtain(CodeMsgs.SYSTEM_BASE_ERROR, message);
     }
 }

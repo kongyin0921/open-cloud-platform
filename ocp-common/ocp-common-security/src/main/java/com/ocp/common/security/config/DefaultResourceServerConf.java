@@ -22,7 +22,7 @@ import javax.annotation.Resource;
  * @date 2021/07/30 23:13
  * blog: http://blog.kongyin.ltd
  */
-@Import(DefaultResourceServerConf.class)
+@Import(DefaultSecurityHandlerConfig.class)
 public class DefaultResourceServerConf extends ResourceServerConfigurerAdapter {
 
     @Autowired

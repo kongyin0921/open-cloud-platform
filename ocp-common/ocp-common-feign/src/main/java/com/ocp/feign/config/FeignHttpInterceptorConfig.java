@@ -71,7 +71,7 @@ public class FeignHttpInterceptorConfig {
      * @param request
      */
     private String extractHeaderToken(HttpServletRequest request) {
-        Enumeration<String> headers = request.getHeaders(CommonConstant.TOKEN_HEADER);
+        Enumeration<String> headers = request.getHeaders(MessageHeaderConstants.TOKEN_HEADER);
         while (headers.hasMoreElements()) {
             String value = headers.nextElement();
             if ((value.toLowerCase().startsWith(CommonConstant.BEARER_TYPE.toLowerCase()))) {

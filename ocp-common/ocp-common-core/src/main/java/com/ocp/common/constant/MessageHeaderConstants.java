@@ -42,4 +42,9 @@ public interface MessageHeaderConstants {
      * 负载均衡策略-版本号 信息头
      */
     String O_C_P_VERSION = "o-c-p-version";
+
+    /**
+     * token请求头名称
+     */
+    String TOKEN_HEADER = "Authorization";
 }

@@ -7,11 +7,11 @@ import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.base.Captcha;
 import com.wf.captcha.utils.CaptchaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
@@ -69,9 +69,9 @@ public class ValidateCodeController {
 
     @GetMapping(EndpointConstant.DEFAULT_VALIDATE_CODE_URL_PREFIX + "{/mobile}")
     @ResponseBody
-    public Result createCode(@PathVariable String mobile) {
+    public ResponseEntity<Result<Object>> createCode(@PathVariable String mobile) {
         Assert.notNull(mobile, "手机号[mobile]不能为空");
         validateCodeService.sendSmsCode(mobile);
-        return Result.succeed("操作成功");
+        return Result.success().response();
     }
 }
