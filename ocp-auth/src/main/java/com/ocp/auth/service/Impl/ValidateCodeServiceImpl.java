@@ -1,10 +1,11 @@
 package com.ocp.auth.service.Impl;
 
 import cn.hutool.core.util.RandomUtil;
-import com.ocp.auth.exception.ValidateCodeException;
+import cn.hutool.core.util.StrUtil;
 import com.ocp.auth.service.IValidateCodeService;
 import com.ocp.common.constant.SecurityConstants;
 import com.ocp.common.entity.SysUser;
+import com.ocp.common.exception.ValidateCodeException;
 import com.ocp.common.feign.UserService;
 import com.ocp.common.redis.template.RedisRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -67,6 +68,50 @@ public class ValidateCodeServiceImpl implements IValidateCodeService {
         log.info("短信发送请求消息中心 -> 手机号:{} -> 验证码：{}", mobile, code);
         redisRepository.setExpire(buildKey(mobile), code, SecurityConstants.DEFAULT_IMAGE_EXPIRE);
         // TODO 发送请求 --> 消息队列 --> 短信发送服务 --> 消费信息
+    }
+
+    /**
+     * 获取验证码
+     * @param deviceId 前端唯一标识/手机号
+     */
+    @Override
+    public String getCode(String deviceId) {
+        return (String)redisRepository.get(buildKey(deviceId));
+    }
+
+    /**
+     * 删除验证码
+     * @param deviceId 前端唯一标识/手机号
+     */
+    @Override
+    public void remove(String deviceId) {
+        redisRepository.del(buildKey(deviceId));
+    }
+
+    /**
+     * 验证码验证
+     * @param deviceId 设备编号
+     * @param validCode 有效代码
+     */
+    @Override
+    public void validate(String deviceId, String validCode) {
+        if (StrUtil.isBlank(deviceId)) {
+            throw new ValidateCodeException("请在请求参数中携带deviceId参数");
+        }
+        String code = this.getCode(deviceId);
+        if (StrUtil.isBlank(validCode)) {
+            throw new ValidateCodeException("请填写验证码");
+        }
+
+        if (code == null) {
+            throw new ValidateCodeException("验证码不存在或已过期");
+        }
+
+        if (!StrUtil.equalsIgnoreCase(code, validCode.toLowerCase())) {
+            throw new ValidateCodeException("验证码不正确");
+        }
+
+        this.remove(deviceId);
     }
 
     private String buildKey(String str) {

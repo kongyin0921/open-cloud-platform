@@ -28,4 +28,20 @@ public interface GrantTypeConstant {
      * 简化模式
      */
     String IMPLICIT = "implicit";
+    /**
+     * 自定义：手机 + 密码
+     */
+    String MOBILE_PASSWORD = "mobile_password";
+    /**
+     * 自定义：OPENID
+     */
+    String OPENID = "openId";
+    /**
+     * 自定义：账号密码 + 验证码
+     */
+    String PASSWORD_CODE = "password_code";
+    /**
+     * 自定义：微信小程序
+     */
+    String WX_MINI_PROGRAM = "wx_mini_program";
 }

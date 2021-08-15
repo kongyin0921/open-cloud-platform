@@ -1,10 +1,8 @@
 package com.ocp.auth.service.Impl;
 
-import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ocp.auth.entity.Client;
-import com.ocp.auth.entity.dto.ClientDto;
 import com.ocp.auth.mapper.ClientMapper;
 import com.ocp.auth.service.IClientService;
 import com.ocp.common.bean.PageResult;
@@ -15,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +26,7 @@ import java.util.Map;
  */
 @Slf4j
 @Service
+@SuppressWarnings("all")
 public class ClientServiceImpl extends SuperServiceImpl<ClientMapper, Client> implements IClientService {
 
     private final static String LOCK_KEY_CLIENTID = "clientId:";
@@ -58,8 +58,8 @@ public class ClientServiceImpl extends SuperServiceImpl<ClientMapper, Client> im
         client.setClientSecret(passwordEncoder.encode(client.getClientSecretStr()));
         String clientId = client.getClientId();
         super.saveOrUpdateIdempotency(client, lock
-                , LOCK_KEY_CLIENTID+clientId
-                , new QueryWrapper<Client>().eq("client_id", clientId)
+                , LOCK_KEY_CLIENTID.concat(clientId)
+                , new QueryWrapper<Client>().eq(OAuth2Utils.CLIENT_ID, clientId)
                 , clientId + "已存在");
     }
 }

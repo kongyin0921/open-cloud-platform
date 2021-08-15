@@ -4,12 +4,12 @@ import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ocp.common.bean.Result;
 import com.ocp.common.code.CodeMsgs;
-import com.ocp.common.constant.ParameterConstants;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -38,7 +38,7 @@ public class OauthLogoutSuccessHandler implements LogoutSuccessHandler {
     @SneakyThrows
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        String redirectUri = request.getParameter(ParameterConstants.REDIRECT_URI);
+        String redirectUri = request.getParameter(OAuth2Utils.REDIRECT_URI);
         if (StrUtil.isNotEmpty(redirectUri)) {
             //重定向自定地址
             redirectStrategy.sendRedirect(request,response,redirectUri);

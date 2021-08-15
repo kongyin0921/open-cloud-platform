@@ -22,9 +22,4 @@ public interface ParameterConstants {
      * 日志链路追踪id日志标志
      */
     String LOG_TRACE_ID = "traceId";
-
-    /**
-     * 重定向 URI
-     */
-    String REDIRECT_URI = "redirect_uri";
 }

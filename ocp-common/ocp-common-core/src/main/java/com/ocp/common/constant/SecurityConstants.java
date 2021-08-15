@@ -14,6 +14,16 @@ public interface SecurityConstants {
     String USER_SPLIT = ":";
 
     /**
+     * 默认账号类型
+     */
+    String DEF_ACCOUNT_TYPE = "admin";
+
+    /**
+     * 账号类型参数名
+     */
+    String ACCOUNT_TYPE_PARAM_NAME = "account_type";
+
+    /**
      * 基础角色
      */
     String BASE_ROLE = "ROLE_USER";
@@ -68,8 +78,5 @@ public interface SecurityConstants {
      */
     String ISS = "http://xxx.cn";
 
-    /**
-     * 账号类型参数名
-     */
-    String ACCOUNT_TYPE_PARAM_NAME = "account_type";
+
 }

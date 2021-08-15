@@ -1,4 +1,4 @@
-package com.ocp.auth.exception;
+package com.ocp.common.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

@@ -1,4 +1,4 @@
-package com.ocp.common.security.token;
+package com.ocp.auth.provider.token;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
