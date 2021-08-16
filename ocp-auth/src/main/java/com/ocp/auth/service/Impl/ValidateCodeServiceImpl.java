@@ -115,6 +115,6 @@ public class ValidateCodeServiceImpl implements IValidateCodeService {
     }
 
     private String buildKey(String str) {
-        return SecurityConstants.DEFAULT_CODE_KEY + ":" + str;
+        return SecurityConstants.DEFAULT_CODE_KEY + str;
     }
 }

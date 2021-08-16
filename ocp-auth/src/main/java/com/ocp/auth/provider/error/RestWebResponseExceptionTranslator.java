@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
+import org.springframework.stereotype.Component;
 
 /**
  * Rest Web响应异常转换器
@@ -13,6 +14,7 @@ import org.springframework.security.oauth2.provider.error.WebResponseExceptionTr
  * @date 2021/08/15 10:29
  * blog: http://blog.kongyin.ltd
  */
+@Component
 public class RestWebResponseExceptionTranslator implements WebResponseExceptionTranslator<Result<Object>> {
     private final DefaultWebResponseExceptionTranslator defaultWebResponseExceptionTranslator = new DefaultWebResponseExceptionTranslator();
 

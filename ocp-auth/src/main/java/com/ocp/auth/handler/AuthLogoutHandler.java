@@ -3,11 +3,11 @@ package com.ocp.auth.handler;
 import cn.hutool.core.util.StrUtil;
 import com.ocp.common.security.util.AuthUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +20,14 @@ import javax.servlet.http.HttpServletResponse;
  * blog: http://blog.kongyin.ltd
  */
 @Slf4j
-public class OauthLogoutHandler implements LogoutHandler {
-    @Autowired
-    private TokenStore tokenStore;
+@Component
+public class AuthLogoutHandler implements LogoutHandler {
+
+    private final TokenStore tokenStore;
+
+    public AuthLogoutHandler(TokenStore tokenStore) {
+        this.tokenStore = tokenStore;
+    }
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {

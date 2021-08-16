@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -26,11 +27,12 @@ import java.nio.charset.StandardCharsets;
  * blog: http://blog.kongyin.ltd
  */
 @Slf4j
-public class OauthLogoutSuccessHandler implements LogoutSuccessHandler {
+@Component
+public class AuthLogoutSuccessHandler implements LogoutSuccessHandler {
     /**
      * 重定向策略
      */
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Resource
     private ObjectMapper objectMapper;

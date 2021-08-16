@@ -203,7 +203,7 @@ public class CustomRedisTokenStore implements TokenStore {
         RedisConnection conn = getConnection();
         byte[] bytes;
         try {
-            bytes = conn.get(serializeKey(SecurityConstants.CACHE_CLIENT_KEY + ":" + clientId));
+            bytes = conn.get(serializeKey(SecurityConstants.CACHE_CLIENT_KEY.concat(clientId)));
         } finally {
             conn.close();
         }
@@ -223,7 +223,7 @@ public class CustomRedisTokenStore implements TokenStore {
         byte[] bytes;
         RedisConnection conn = getConnection();
         try {
-            bytes = conn.get(serializeKey(SecurityConstants.REDIS_TOKEN_AUTH + token));
+            bytes = conn.get(serializeKey(SecurityConstants.REDIS_TOKEN_AUTH.concat(token)));
         } finally {
             conn.close();
         }
@@ -258,7 +258,7 @@ public class CustomRedisTokenStore implements TokenStore {
         byte[] serializedAccessToken = serialize(token);
         byte[] serializedAuth = serialize(authentication);
         byte[] accessKey = serializeKey(ACCESS + token.getValue());
-        byte[] authKey = serializeKey(SecurityConstants.REDIS_TOKEN_AUTH + token.getValue());
+        byte[] authKey = serializeKey(SecurityConstants.REDIS_TOKEN_AUTH.concat(token.getValue()));
         byte[] authToAccessKey = serializeKey(AUTH_TO_ACCESS + authenticationKeyGenerator.extractKey(authentication));
         byte[] approvalKey = serializeKey(SecurityConstants.REDIS_UNAME_TO_ACCESS + getApprovalKey(authentication));
         byte[] clientId = serializeKey(SecurityConstants.REDIS_CLIENT_ID_TO_ACCESS + authentication.getOAuth2Request().getClientId());
@@ -359,7 +359,7 @@ public class CustomRedisTokenStore implements TokenStore {
 
     public void removeAccessToken(String tokenValue) {
         byte[] accessKey = serializeKey(ACCESS + tokenValue);
-        byte[] authKey = serializeKey(SecurityConstants.REDIS_TOKEN_AUTH + tokenValue);
+        byte[] authKey = serializeKey(SecurityConstants.REDIS_TOKEN_AUTH.concat(tokenValue));
         byte[] accessToRefreshKey = serializeKey(ACCESS_TO_REFRESH + tokenValue);
         RedisConnection conn = getConnection();
         try {

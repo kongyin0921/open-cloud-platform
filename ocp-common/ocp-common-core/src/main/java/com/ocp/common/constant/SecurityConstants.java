@@ -29,24 +29,34 @@ public interface SecurityConstants {
     String BASE_ROLE = "ROLE_USER";
 
     /**
-     * 默认生成图形验证码过期时间
+     * 默认生成图形验证码过期时间 (秒)
      */
-    int DEFAULT_IMAGE_EXPIRE = 60;
-
-    /**
-     * 默认保存code的前缀
-     */
-    String DEFAULT_CODE_KEY = "DEFAULT_CODE_KEY";
-
-    /**
-     * 缓存client的redis key，这里是hash结构存储
-     */
-    String CACHE_CLIENT_KEY = "oauth_client_details";
+    Integer DEFAULT_IMAGE_EXPIRE = 60;
 
     /**
      * 默认token过期时间(1小时)
      */
     Integer ACCESS_TOKEN_VALIDITY_SECONDS = 60 * 60;
+
+    /**
+     * 默认授权码 过期时间 10 min
+     */
+    Integer OAUTH_CODE_EXPIRE = 10;
+
+    /**
+     * 默认保存code的前缀
+     */
+    String DEFAULT_CODE_KEY = "DEFAULT_CODE_KEY:";
+
+    /**
+     * 缓存client的redis key，这里是hash结构存储
+     */
+    String CACHE_CLIENT_KEY = "oauth_client_details:";
+
+    /**
+     * 授权码 code key的前缀
+     */
+    String OAUTH_CODE = "oauth:code:";
 
     /**
      * redis中授权token对应的key

@@ -2,7 +2,6 @@ package com.ocp.auth.config;
 
 import com.ocp.auth.filter.LoginProcessSetTenantFilter;
 import com.ocp.auth.filter.TenantUserPwdAuthenticationFilter;
-import com.ocp.auth.handler.OauthLogoutSuccessHandler;
 import com.ocp.auth.provider.MobileAuthenticationProvider;
 import com.ocp.auth.provider.OpenIdAuthenticationProvider;
 import com.ocp.auth.provider.PasswordAuthenticationProvider;
@@ -24,12 +23,12 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -44,11 +43,17 @@ import javax.servlet.http.HttpSession;
 @Import(DefaultPasswordConfig.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Resource
-    private LogoutHandler oauthLogoutHandler;
+    @Autowired
+    private LogoutHandler logoutHandler;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
 
     @Autowired
     private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Autowired(required = false)
     private AuthenticationEntryPoint authenticationEntryPoint;
@@ -101,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setAuthenticationManager(authenticationManager);
         filter.setFilterProcessesUrl(EndpointConstant.OAUTH_LOGIN_PRO_URL);
         filter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
-        filter.setAuthenticationFailureHandler(new SimpleUrlAuthenticationFailureHandler(EndpointConstant.LOGIN_FAILURE_PAGE));
+        filter.setAuthenticationFailureHandler(authenticationFailureHandler);
         filter.setAuthenticationDetailsSource(authenticationDetailsSource());
         return filter;
     }
@@ -126,8 +131,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().permitAll()//授权服务器关闭basic认证
                 .and().logout().logoutUrl(EndpointConstant.LOGOUT_URL)
-                .logoutSuccessHandler(new OauthLogoutSuccessHandler())
-                .addLogoutHandler(oauthLogoutHandler).clearAuthentication(true)
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .addLogoutHandler(logoutHandler).clearAuthentication(true)
                 .and().addFilterBefore(new LoginProcessSetTenantFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable().headers().frameOptions().disable().cacheControl();// 解决不允许显示在iframe的问题
 
@@ -139,6 +144,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http.formLogin().loginPage(EndpointConstant.LOGIN_PAGE)
                     .loginProcessingUrl(EndpointConstant.OAUTH_LOGIN_PRO_URL)
                     .successHandler(authenticationSuccessHandler)
+                    .failureHandler(authenticationFailureHandler)
                     .authenticationDetailsSource(authenticationDetailsSource());
         }
 

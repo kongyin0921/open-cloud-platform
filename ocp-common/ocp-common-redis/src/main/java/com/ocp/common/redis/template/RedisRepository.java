@@ -31,6 +31,10 @@ public class RedisRepository {
      */
     private  final RedisTemplate<String, Object> redisTemplate;
 
+    /**
+     * 构造
+     * @param redisTemplate
+     */
     public RedisRepository(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
