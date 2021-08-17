@@ -12,6 +12,7 @@ import java.io.IOException;
 
 /**
  * 身份验证登录成功处理程序
+ * 为将来 发送事件 存储日志做准备
  * @author kong
  * @date 2021/08/16 22:25
  * blog: http://blog.kongyin.ltd

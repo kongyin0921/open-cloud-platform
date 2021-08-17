@@ -27,8 +27,8 @@ public class OpenIdGranter extends AbstractTokenGranter {
 
     private final AuthenticationManager authenticationManager;
 
-    public OpenIdGranter(AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService,
-                         OAuth2RequestFactory requestFactory, AuthenticationManager authenticationManager) {
+    public OpenIdGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService,
+                         OAuth2RequestFactory requestFactory) {
         super(tokenServices, clientDetailsService, requestFactory, GRANT_TYPE);
         this.authenticationManager = authenticationManager;
     }

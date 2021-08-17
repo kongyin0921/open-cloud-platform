@@ -1,7 +1,6 @@
 package com.ocp.auth.service;
 
 import com.ocp.auth.entity.Client;
-import com.ocp.auth.entity.dto.ClientDto;
 import com.ocp.common.bean.ISuperService;
 import com.ocp.common.bean.PageResult;
 
@@ -25,4 +24,11 @@ public interface IClientService extends ISuperService<Client> {
      * @param client
      */
     void saveClient(Client client) throws Exception;
+
+    /**
+     * 按客户端 ID 加载客户端
+     * @param clientId
+     * @return
+     */
+    Client loadClientByClientId(String clientId);
 }

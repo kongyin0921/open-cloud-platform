@@ -33,8 +33,8 @@ public class MobilePwdGranter extends AbstractTokenGranter {
      */
     private final AuthenticationManager authenticationManager;
 
-    public MobilePwdGranter(AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService,
-                            OAuth2RequestFactory requestFactory,AuthenticationManager authenticationManager) {
+    public MobilePwdGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService,
+                            OAuth2RequestFactory requestFactory) {
         super(tokenServices, clientDetailsService, requestFactory,GRANT_TYPE);
         this.authenticationManager = authenticationManager;
     }

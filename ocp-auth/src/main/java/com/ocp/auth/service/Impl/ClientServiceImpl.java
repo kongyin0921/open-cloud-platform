@@ -1,6 +1,7 @@
 package com.ocp.auth.service.Impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ocp.auth.entity.Client;
 import com.ocp.auth.mapper.ClientMapper;
@@ -61,6 +62,13 @@ public class ClientServiceImpl extends SuperServiceImpl<ClientMapper, Client> im
                 , LOCK_KEY_CLIENTID.concat(clientId)
                 , new QueryWrapper<Client>().eq(OAuth2Utils.CLIENT_ID, clientId)
                 , clientId + "已存在");
+    }
+
+    @Override
+    public Client loadClientByClientId(String clientId) {
+        QueryWrapper<Client> wrapper = Wrappers.query();
+        wrapper.eq("client_id", clientId);
+        return this.getOne(wrapper);
     }
 }
 

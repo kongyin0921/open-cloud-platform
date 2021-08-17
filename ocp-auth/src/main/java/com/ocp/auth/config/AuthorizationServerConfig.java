@@ -2,18 +2,48 @@ package com.ocp.auth.config;
 
 import com.ocp.auth.provider.client.RedisClientDetailsService;
 import com.ocp.auth.provider.code.RedisAuthorizationCodeServices;
+import com.ocp.auth.provider.granter.MobilePwdGranter;
+import com.ocp.auth.provider.granter.OpenIdGranter;
+import com.ocp.auth.provider.granter.PwdValidateCodeGranter;
+import com.ocp.auth.provider.token.CustomTokenEnhancer;
+import com.ocp.auth.provider.token.CustomTokenServices;
+import com.ocp.auth.service.IValidateCodeService;
+import com.ocp.auth.service.factory.UserDetailServiceFactory;
+import com.ocp.auth.service.factory.UserDetailsByNameServiceFactoryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.CompositeTokenGranter;
+import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
+import org.springframework.security.oauth2.provider.TokenGranter;
+import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenGranter;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
+import org.springframework.security.oauth2.provider.implicit.ImplicitTokenGranter;
+import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
+import org.springframework.security.oauth2.provider.refresh.RefreshTokenGranter;
+import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *  OAuth2 授权服务器配置
@@ -25,6 +55,14 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableAuthorizationServer
 @AutoConfigureAfter(AuthorizationServerEndpointsConfigurer.class)
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+
+    private final boolean reuseRefreshToken = true;
+    /**
+     * 是否登录同应用同账号互踢
+     */
+    @Value("${ocp.auth.isSingleLogin:false}")
+    private boolean isSingleLogin;
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -52,6 +90,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private WebResponseExceptionTranslator exceptionTranslator;
+
+    @Autowired
+    private TokenGranter tokenGranter;
+
+    @Resource
+    private UserDetailServiceFactory userDetailsServiceFactory;
+
+    @Autowired
+    private CustomTokenEnhancer tokenEnhancer;
+
+    @Autowired
+    private IValidateCodeService validateCodeService;
+
 
     /**
      * 授权服务安全配置
@@ -89,7 +140,85 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager)
                 .authorizationCodeServices(authorizationCodeServices)
-                .exceptionTranslator(exceptionTranslator);
+                .exceptionTranslator(exceptionTranslator).tokenServices(tokenServices());
 
+        ClientDetailsService clientDetails = endpoints.getClientDetailsService();
+        AuthorizationServerTokenServices tokenServices = endpoints.getTokenServices();
+        OAuth2RequestFactory requestFactory = endpoints.getOAuth2RequestFactory();
+        //组合模式
+        endpoints.tokenGranter(new CompositeTokenGranter(getAllTokenGranters(clientDetails, tokenServices, requestFactory)));
+    }
+
+    /**
+     * tokenGranters添加oauth模式 ，可以让/oauth/token支持自定义模式，继承AbstractTokenGranter 扩展
+     * 所有授权模式：默认的5种模式 + 自定义的模式
+     * @param clientDetails
+     * @param tokenServices
+     * @param requestFactory
+     */
+    private List<TokenGranter> getAllTokenGranters(ClientDetailsService clientDetails,
+                                                   AuthorizationServerTokenServices tokenServices,
+                                                   OAuth2RequestFactory requestFactory) {
+
+        //获取默认的授权模式
+        List<TokenGranter> tokenGranters = getDefaultTokenGranters(tokenServices, authorizationCodeServices, requestFactory);
+        if (authenticationManager != null) {
+            // 添加密码加图形验证码模式
+            tokenGranters.add(new PwdValidateCodeGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory, validateCodeService));
+            // 添加openId模式
+            tokenGranters.add(new OpenIdGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory));
+            // 添加手机号加密码授权模式
+            tokenGranters.add(new MobilePwdGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory));
+        }
+        return tokenGranters;
+    }
+
+    /**
+     * 默认的授权模式
+     */
+    private List<TokenGranter> getDefaultTokenGranters(AuthorizationServerTokenServices tokenServices
+            , AuthorizationCodeServices authorizationCodeServices, OAuth2RequestFactory requestFactory) {
+        List<TokenGranter> tokenGranters = new ArrayList<>();
+        // 添加授权码模式
+        tokenGranters.add(new AuthorizationCodeTokenGranter(tokenServices, authorizationCodeServices, clientDetailsService, requestFactory));
+        // 添加刷新令牌的模式
+        tokenGranters.add(new RefreshTokenGranter(tokenServices, clientDetailsService, requestFactory));
+        // 添加隐士授权模式
+        tokenGranters.add(new ImplicitTokenGranter(tokenServices, clientDetailsService, requestFactory));
+        // 添加客户端模式
+        tokenGranters.add(new ClientCredentialsTokenGranter(tokenServices, clientDetailsService, requestFactory));
+        if (authenticationManager != null) {
+            // 添加密码模式
+            tokenGranters.add(new ResourceOwnerPasswordTokenGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory));
+        }
+        return tokenGranters;
+    }
+
+    /**
+     * token 生成规则
+     *
+     * @return
+     */
+    @Bean
+    public DefaultTokenServices tokenServices() {
+        DefaultTokenServices tokenServices = new CustomTokenServices(isSingleLogin);
+        tokenServices.setTokenStore(tokenStore);
+        tokenServices.setSupportRefreshToken(true);
+        tokenServices.setReuseRefreshToken(reuseRefreshToken);
+        tokenServices.setClientDetailsService(clientDetailsService);
+        // 自定义token处理
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        enhancerChain.setTokenEnhancers(Collections.singletonList(tokenEnhancer));
+        tokenServices.setTokenEnhancer(enhancerChain);
+        addUserDetailsService(tokenServices);
+        return tokenServices;
+    }
+
+    private void addUserDetailsService(DefaultTokenServices tokenServices) {
+        if (this.userDetailsServiceFactory != null) {
+            PreAuthenticatedAuthenticationProvider provider = new PreAuthenticatedAuthenticationProvider();
+            provider.setPreAuthenticatedUserDetailsService(new UserDetailsByNameServiceFactoryWrapper<>(this.userDetailsServiceFactory));
+            tokenServices.setAuthenticationManager(new ProviderManager(Collections.singletonList(provider)));
+        }
     }
 }
