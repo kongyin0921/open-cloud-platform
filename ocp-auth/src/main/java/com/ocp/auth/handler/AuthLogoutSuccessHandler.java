@@ -40,6 +40,7 @@ public class AuthLogoutSuccessHandler implements LogoutSuccessHandler {
     @SneakyThrows
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        log.info("用户：{} 退出成功", authentication.getPrincipal());
         String redirectUri = request.getParameter(OAuth2Utils.REDIRECT_URI);
         if (StrUtil.isNotEmpty(redirectUri)) {
             //重定向自定地址

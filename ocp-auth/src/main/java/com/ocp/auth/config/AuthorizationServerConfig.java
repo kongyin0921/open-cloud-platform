@@ -54,6 +54,7 @@ import java.util.List;
 @Configuration
 @EnableAuthorizationServer
 @AutoConfigureAfter(AuthorizationServerEndpointsConfigurer.class)
+@SuppressWarnings("all")
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final boolean reuseRefreshToken = true;
@@ -90,9 +91,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private WebResponseExceptionTranslator exceptionTranslator;
-
-    @Autowired
-    private TokenGranter tokenGranter;
 
     @Resource
     private UserDetailServiceFactory userDetailsServiceFactory;

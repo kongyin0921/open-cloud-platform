@@ -1,6 +1,11 @@
+## 端口
 server:
   port: 8800
+
+## spring 相关
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: auth-server
   datasource:
@@ -8,7 +13,19 @@ spring:
     username: ${MYSQL-USER:root}
     password: ${MYSQL-PWD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
 
+
+# mybatis plus 配置
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
@@ -16,7 +33,52 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+## 自定义 ocp 配置
 ocp:
+  # 日志链路追踪
+  trace:
+    enable: false
+  ribbon:
+    isolation:
+      enabled: false
   lock:
     lockerType: REDIS
+  auth:
+    isSingleLogin: false
+  # 授权
+  oauth2:
+    token:
+      store:
+        type: redis
+
+  #多租户配置
+  tenant:
+    enable: true
+    ignoreTables:
+      - oauth_client_details
+  # api doc
+  swagger:
+    enabled: true
+    title: 认证中心
+    description: 认证中心接口文档
+    version: 1.0
+    base-package: com.ocp.auth.controller
+feign:
+  sentinel:
+    enabled: true
+  hystrix:
+    enabled: false
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+    max-connections: 1000
+    max-connections-per-route: 100
+  client:
+    config:
+      feignName:
+        connectTimeout: 30000
+        readTimeout: 30000

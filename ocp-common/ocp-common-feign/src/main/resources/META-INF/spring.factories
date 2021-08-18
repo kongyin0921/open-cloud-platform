@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.ocp.feign.ribbon.RibbonAutoConfigure,\
+  com.ocp.feign.config.FeignAutoConfigure,\
+  com.ocp.feign.config.RestTemplateAutoConfigure,\
+  com.ocp.feign.ribbon.loadbalancer.filter.LbIsolationFilter,\
+  com.ocp.feign.ribbon.LbIsolationAutoConfigure

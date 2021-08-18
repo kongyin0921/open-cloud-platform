@@ -31,6 +31,7 @@ public class AuthLogoutHandler implements LogoutHandler {
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        log.info("用户：{} 退出", authentication.getPrincipal());
         Assert.isNull(tokenStore,"tokenStore must be set");
         String token = request.getParameter("token");
         if (StrUtil.isEmpty(token)) {

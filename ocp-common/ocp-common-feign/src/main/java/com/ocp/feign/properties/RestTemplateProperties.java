@@ -1,13 +1,15 @@
 package com.ocp.feign.properties;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author kong
  * @date 2021/08/04 22:16
  * blog: http://blog.kongyin.ltd
  */
-@ConditionalOnProperty(prefix = "ocp.rest-template")
+@Data
+@ConfigurationProperties(prefix = "ocp.rest-template")
 public class RestTemplateProperties {
 
     /**

@@ -25,6 +25,7 @@ public class AuthLoginSuccessHandler extends SavedRequestAwareAuthenticationSucc
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws ServletException, IOException {
+        log.info("用户：{} 登录成功", authentication.getPrincipal());
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

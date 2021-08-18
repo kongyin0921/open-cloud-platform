@@ -12,8 +12,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @date 2021/08/02 22:43
  * blog: http://blog.kongyin.ltd
  */
-
-@EnableFeignClients
+//指定 feign 扫描 包路径
+@EnableFeignClients(basePackages = {"com.ocp"})
 @EnableFeignInterceptor
 @EnableDiscoveryClient
 @SpringBootApplication
