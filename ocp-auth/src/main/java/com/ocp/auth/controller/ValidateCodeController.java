@@ -6,6 +6,8 @@ import com.ocp.common.constant.EndpointConstant;
 import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.base.Captcha;
 import com.wf.captcha.utils.CaptchaUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import java.io.IOException;
  * @date 2021/08/13 22:34
  * blog: http://blog.kongyin.ltd
  */
+@Api("验证码")
 @Controller
 public class ValidateCodeController {
     /**
@@ -49,6 +52,7 @@ public class ValidateCodeController {
      * @param response 响应
      * @throws IOException
      */
+    @ApiOperation("创建验证码")
     @GetMapping(EndpointConstant.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{deviceId}")
     public void createCode(@PathVariable String deviceId, HttpServletResponse response) throws IOException {
         Assert.notNull(deviceId, "设备编号[deviceId]不能为空");
@@ -67,6 +71,13 @@ public class ValidateCodeController {
         gifCaptcha.out(response.getOutputStream());
     }
 
+    /**
+     *
+     * 手机验证码
+     * @param mobile
+     * @return
+     */
+    @ApiOperation("手机验证码")
     @GetMapping(EndpointConstant.DEFAULT_VALIDATE_CODE_URL_PREFIX + "{/mobile}")
     @ResponseBody
     public ResponseEntity<Result<Object>> createCode(@PathVariable String mobile) {

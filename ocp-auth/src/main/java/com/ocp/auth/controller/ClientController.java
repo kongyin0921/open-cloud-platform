@@ -2,8 +2,9 @@ package com.ocp.auth.controller;
 
 import com.ocp.auth.entity.Client;
 import com.ocp.auth.entity.dto.ClientDto;
+import com.ocp.auth.entity.dto.ClientQueryPageDto;
 import com.ocp.auth.service.IClientService;
-import com.ocp.common.bean.PageResult;
+import com.ocp.common.bean.PageInfo;
 import com.ocp.common.bean.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 应用相关接口
@@ -30,8 +30,8 @@ public class ClientController {
 
     @GetMapping("/list")
     @ApiOperation(value = "应用列表")
-    public ResponseEntity<PageResult<Client>> list(@RequestParam Map<String,Object> params){
-        return ResponseEntity.ok(clientService.listClient(params,true));
+    public ResponseEntity<PageInfo<Client>> list(@RequestParam ClientQueryPageDto pageDto){
+        return ResponseEntity.ok(clientService.listClient(pageDto));
     }
 
     @GetMapping("/{id}")
@@ -50,7 +50,7 @@ public class ClientController {
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除应用")
     public ResponseEntity<Result<Object>> delete(@PathVariable Long id){
-        clientService.removeById(id);
+        clientService.delClient(id);
         return Result.success().response();
     }
 

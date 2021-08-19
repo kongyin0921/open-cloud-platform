@@ -5,7 +5,7 @@ import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ocp.common.bean.PageResult;
+import com.ocp.common.bean.PageInfo;
 import com.ocp.common.util.JsonUtil;
 import lombok.Data;
 import org.apache.commons.beanutils.PropertyUtils;
@@ -203,7 +203,7 @@ public class SearchBuilder {
     /**
      * 返回分页结果 PageResult<JSONObject>
      */
-    public PageResult<JsonNode> getPage() throws IOException {
+    public PageInfo<JsonNode> getPage() throws IOException {
         return this.getPage(null, null);
     }
 
@@ -212,13 +212,14 @@ public class SearchBuilder {
      * @param page 当前页数
      * @param limit 每页显示
      */
-    public PageResult<JsonNode> getPage(Integer page, Integer limit) throws IOException {
+    public PageInfo<JsonNode> getPage(Integer page, Integer limit) throws IOException {
         this.setPage(page, limit);
         SearchResponse response = this.get();
         SearchHits searchHits = response.getHits();
         long totalCnt = searchHits.getTotalHits().value;
         List<JsonNode> list = getList(searchHits);
-        return PageResult.<JsonNode>builder().data(list).code(0).count(totalCnt).build();
+
+        return PageInfo.<JsonNode>builder().pageIndex(page).pageSize(limit).data(list).total(totalCnt).build();
     }
 
     /**

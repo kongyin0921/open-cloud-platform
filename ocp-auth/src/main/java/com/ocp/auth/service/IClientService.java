@@ -1,10 +1,9 @@
 package com.ocp.auth.service;
 
 import com.ocp.auth.entity.Client;
+import com.ocp.auth.entity.dto.ClientQueryPageDto;
 import com.ocp.common.bean.ISuperService;
-import com.ocp.common.bean.PageResult;
-
-import java.util.Map;
+import com.ocp.common.bean.PageInfo;
 
 /**
  * @author kong
@@ -14,10 +13,9 @@ import java.util.Map;
 public interface IClientService extends ISuperService<Client> {
     /**
      * 查询应用列表
-     * @param params
-     * @param isPage 是否分页
+     * @param pageDto
      */
-    PageResult<Client> listClient(Map<String, Object> params, boolean isPage);
+    PageInfo<Client> listClient(ClientQueryPageDto pageDto);
 
     /**
      * 保存应用
@@ -31,4 +29,10 @@ public interface IClientService extends ISuperService<Client> {
      * @return
      */
     Client loadClientByClientId(String clientId);
+
+    /**
+     * 删除客户端
+     * @param id
+     */
+    void delClient(Long id);
 }
