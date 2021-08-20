@@ -1,6 +1,7 @@
 package com.ocp.auth.provider.granter;
 
 import com.ocp.auth.service.IValidateCodeService;
+import com.ocp.common.constant.GrantTypeConstant;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 public class PwdValidateCodeGranter extends ResourceOwnerPasswordTokenGranter {
 
-    private static final String GRANT_TYPE = "password_code";
+    private static final String GRANT_TYPE = GrantTypeConstant.PASSWORD_CODE;
 
     private final IValidateCodeService validateCodeService;
 

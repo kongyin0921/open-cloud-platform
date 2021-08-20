@@ -28,8 +28,8 @@ public class MobileAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         MobileAuthenticationToken authenticationToken = (MobileAuthenticationToken) authentication;
-        String mobile = (String) authenticationToken.getPrincipal();
-        String password = (String) authenticationToken.getCredentials();
+        String mobile = authenticationToken.getPrincipal().toString();
+        String password = authenticationToken.getCredentials().toString();
         UserDetails user = userDetailsServiceFactory.getService(authentication).loadUserByMobile(mobile);
         if (user == null) {
             throw new InternalAuthenticationServiceException("手机号或密码错误");

@@ -24,8 +24,8 @@ public class OpenIdAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         OpenIdAuthenticationToken authenticationToken = (OpenIdAuthenticationToken) authentication;
-        String openId = (String) authenticationToken.getPrincipal();
-        UserDetails user = userDetailsServiceFactory.getService(authenticationToken).loadUserByUserId(openId);
+        String openId = authenticationToken.getPrincipal().toString();
+        UserDetails user = userDetailsServiceFactory.getService(authenticationToken).loadUserByOpenId(openId);
         if (user == null) {
             throw new InternalAuthenticationServiceException("openId错误");
         }

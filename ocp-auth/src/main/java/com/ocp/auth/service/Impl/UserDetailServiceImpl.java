@@ -42,7 +42,7 @@ public class UserDetailServiceImpl implements AuthUserDetailsService {
     }
 
     @Override
-    public SocialUserDetails loadUserByUserId(String openId) {
+    public SocialUserDetails loadUserByOpenId(String openId) {
         LoginAppUser loginAppUser = userService.findByOpenId(openId);
         return checkUser(loginAppUser);
     }

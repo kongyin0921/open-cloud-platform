@@ -101,6 +101,11 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+        </dependency>
+
         <!-- hutool java工具类库  -->
         <dependency>
             <groupId>cn.hutool</groupId>

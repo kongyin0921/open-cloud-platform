@@ -30,5 +30,5 @@ public interface AuthUserDetailsService extends UserDetailsService {
      * 根据用户id/openId查询用户
      * @param userId 用户id/openId
      */
-    SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException;
+    SocialUserDetails loadUserByOpenId(String userId) throws UsernameNotFoundException;
 }

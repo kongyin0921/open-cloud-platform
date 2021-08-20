@@ -1,7 +1,5 @@
 package com.ocp.auth.config;
 
-import org.springframework.context.annotation.Configuration;
-
 /**
  *
  * token授权模式配置类
@@ -9,6 +7,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2021/08/16 20:07
  * blog: http://blog.kongyin.ltd
  */
-@Configuration
+//@Configuration
 public class TokenGranterConfig {
 }

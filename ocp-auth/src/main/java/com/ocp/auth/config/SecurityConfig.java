@@ -2,10 +2,7 @@ package com.ocp.auth.config;
 
 import com.ocp.auth.filter.LoginProcessSetTenantFilter;
 import com.ocp.auth.filter.TenantUserPwdAuthenticationFilter;
-import com.ocp.auth.provider.MobileAuthenticationProvider;
-import com.ocp.auth.provider.OpenIdAuthenticationProvider;
-import com.ocp.auth.provider.PasswordAuthenticationProvider;
-import com.ocp.auth.provider.TenantAuthenticationProvider;
+import com.ocp.auth.provider.*;
 import com.ocp.common.config.DefaultPasswordConfig;
 import com.ocp.common.constant.EndpointConstant;
 import com.ocp.common.constant.SecurityConstants;
@@ -73,6 +70,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TenantAuthenticationProvider tenantAuthenticationProvider;
 
+    @Autowired
+    private WxMiniProgramProvider wxMiniProgramProvider;
+
 
 
     /**
@@ -120,6 +120,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(mobileAuthenticationProvider);
         auth.authenticationProvider(openIdAuthenticationProvider);
         auth.authenticationProvider(tenantAuthenticationProvider);
+        auth.authenticationProvider(wxMiniProgramProvider);
     }
 
     @Override
