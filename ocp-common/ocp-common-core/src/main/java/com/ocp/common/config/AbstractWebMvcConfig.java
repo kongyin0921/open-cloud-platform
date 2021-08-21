@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2021/08/07 18:13
  * blog: http://blog.kongyin.ltd
  */
-public class DefaultWebMvcConfig implements WebMvcConfigurer {
+public abstract class AbstractWebMvcConfig implements WebMvcConfigurer {
 
     @Lazy
     @Autowired

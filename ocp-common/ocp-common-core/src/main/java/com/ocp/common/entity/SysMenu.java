@@ -2,7 +2,7 @@ package com.ocp.common.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.ocp.common.bean.SuperEntity;
+import com.ocp.common.bean.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +15,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_menu")
-public class SysMenu extends SuperEntity {
+public class SysMenu extends AbstractEntity<SysMenu> {
 	private static final long serialVersionUID = 749360940290141180L;
 
 	private Long parentId;

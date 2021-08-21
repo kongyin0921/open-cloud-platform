@@ -18,7 +18,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Data
 @EnableAsync(proxyTargetClass = true)
-public class DefaultAsycTaskConfig {
+public abstract class AbstractAsycTaskConfig {
     /**
      *  线程池维护线程的最小数量.
      */

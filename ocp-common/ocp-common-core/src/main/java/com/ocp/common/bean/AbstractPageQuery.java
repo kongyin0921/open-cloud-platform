@@ -6,7 +6,7 @@ package com.ocp.common.bean;
  * @date 2021/08/18 20:02
  * blog: http://blog.kongyin.ltd
  */
-public abstract class AbstractPageQuery  implements IPage{
+public abstract class AbstractPageQuery implements IPage{
 
     /**
      * 当前页

@@ -3,7 +3,7 @@ package com.ocp.common.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.ocp.common.bean.SuperEntity;
+import com.ocp.common.bean.AbstractEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -18,7 +18,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("sys_user")
-public class SysUser extends SuperEntity {
+public class SysUser extends AbstractEntity<SysUser> {
     private static final long serialVersionUID = -5886012896705137070L;
 
     private String username;

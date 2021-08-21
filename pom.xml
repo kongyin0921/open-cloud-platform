@@ -17,6 +17,7 @@
         <module>ocp-gateway</module>
         <module>ocp-register</module>
         <module>ocp-auth</module>
+        <module>ocp-server</module>
     </modules>
 
     <dependencies>

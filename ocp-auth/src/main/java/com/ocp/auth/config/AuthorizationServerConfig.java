@@ -5,6 +5,7 @@ import com.ocp.auth.provider.code.RedisAuthorizationCodeServices;
 import com.ocp.auth.provider.granter.MobilePwdGranter;
 import com.ocp.auth.provider.granter.OpenIdGranter;
 import com.ocp.auth.provider.granter.PwdValidateCodeGranter;
+import com.ocp.auth.provider.granter.WxMiniProgramTokenGranter;
 import com.ocp.auth.provider.token.CustomTokenEnhancer;
 import com.ocp.auth.provider.token.CustomTokenServices;
 import com.ocp.auth.service.IValidateCodeService;
@@ -167,6 +168,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             tokenGranters.add(new OpenIdGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory));
             // 添加手机号加密码授权模式
             tokenGranters.add(new MobilePwdGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory));
+            // wx 小程序
+            tokenGranters.add(new WxMiniProgramTokenGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory));
         }
         return tokenGranters;
     }

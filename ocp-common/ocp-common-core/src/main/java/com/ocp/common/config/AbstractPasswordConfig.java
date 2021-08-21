@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @date 2021/08/07 19:13
  * blog: http://blog.kongyin.ltd
  */
-public class DefaultPasswordConfig {
+public abstract class AbstractPasswordConfig {
     @Bean
     @ConditionalOnMissingBean
     public PasswordEncoder passwordEncoder(){

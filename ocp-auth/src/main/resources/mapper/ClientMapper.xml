@@ -35,8 +35,8 @@
             <if test="params.additionalInformation != null and params.additionalInformation != ''">
                 and additional_information = #{params.additionalInformation}
             </if>
-            <if test="params.autoapprove != null and params.autoapprove != ''">
-                and autoapprove = #{params.autoapprove}
+            <if test="params.autoApprove != null and params.autoApprove != ''">
+                and auto_approve = #{params.autoApprove}
             </if>
             <if test="params.searchKey != null and params.searchKey != ''">
                 and client_id like concat('%', #{params.searchKey}, '%')

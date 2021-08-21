@@ -38,7 +38,7 @@ public class ClientQueryPageDto extends AbstractPageQuery {
      */
     private String webServerRedirectUri;
     /**
-     *
+     * 权限
      */
     private String authorities;
     /**
@@ -56,6 +56,6 @@ public class ClientQueryPageDto extends AbstractPageQuery {
     /**
      * 是否自动授权
      */
-    private String autoApprove;
+    private String autoapprove;
 
 }

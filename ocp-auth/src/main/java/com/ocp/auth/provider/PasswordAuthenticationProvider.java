@@ -92,15 +92,12 @@ public class PasswordAuthenticationProvider extends AbstractUserDetailsAuthentic
                         "UserDetailsService returned null, which is an interface contract violation");
             }
             return loadedUser;
-        }
-        catch (UsernameNotFoundException ex) {
+        } catch (UsernameNotFoundException ex) {
             mitigateAgainstTimingAttack(authentication);
             throw ex;
-        }
-        catch (InternalAuthenticationServiceException ex) {
+        } catch (InternalAuthenticationServiceException ex) {
             throw ex;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new InternalAuthenticationServiceException(ex.getMessage(), ex);
         }
     }

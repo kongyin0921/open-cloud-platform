@@ -16,9 +16,9 @@ import java.util.Date;
  * @date 2021/07/31 13:53
  * blog: http://blog.kongyin.ltd
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
-public class SuperEntity<T extends Model<?>> extends Model<T> {
+@EqualsAndHashCode(callSuper = true)
+public abstract class AbstractEntity<T extends Model<?>> extends Model<T> {
     /**
      * 主键ID
      */

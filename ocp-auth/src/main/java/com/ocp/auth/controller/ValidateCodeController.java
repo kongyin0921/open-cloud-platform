@@ -78,7 +78,7 @@ public class ValidateCodeController {
      * @return
      */
     @ApiOperation("手机验证码")
-    @GetMapping(EndpointConstant.DEFAULT_VALIDATE_CODE_URL_PREFIX + "{/mobile}")
+    @GetMapping(EndpointConstant.MOBILE_VALIDATE_CODE_URL_PREFIX + "{/mobile}")
     @ResponseBody
     public ResponseEntity<Result<Object>> createCode(@PathVariable String mobile) {
         Assert.notNull(mobile, "手机号[mobile]不能为空");

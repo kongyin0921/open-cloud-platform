@@ -1,7 +1,9 @@
-package com.ocp.common.exception;
+package com.ocp.common.handler;
 
 import com.ocp.common.bean.Result;
 import com.ocp.common.code.CodeMsgs;
+import com.ocp.common.exception.BizException;
+import com.ocp.common.exception.IdempotencyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -23,7 +25,7 @@ import java.sql.SQLException;
  */
 @Slf4j
 @ResponseBody
-public class DefaultExceptionAdvice {
+public abstract class AbstractExceptionHandler {
     /**
      * IllegalArgumentException异常处理返回json
      * 返回状态码:400

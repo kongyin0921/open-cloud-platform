@@ -11,7 +11,7 @@ import com.ocp.auth.mapper.ClientMapper;
 import com.ocp.auth.service.IClientService;
 import com.ocp.common.bean.PageInfo;
 import com.ocp.common.bean.SimplePage;
-import com.ocp.common.bean.SuperServiceImpl;
+import com.ocp.common.bean.AbstractServiceImpl;
 import com.ocp.common.constant.SecurityConstants;
 import com.ocp.common.lock.DistributedLock;
 import com.ocp.common.redis.template.RedisRepository;
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @SuppressWarnings("all")
-public class ClientServiceImpl extends SuperServiceImpl<ClientMapper, Client> implements IClientService {
+public class ClientServiceImpl extends AbstractServiceImpl<ClientMapper, Client> implements IClientService {
 
     private final static String LOCK_KEY_CLIENTID = "clientId:";
 
@@ -55,7 +55,7 @@ public class ClientServiceImpl extends SuperServiceImpl<ClientMapper, Client> im
                 .eq(StrUtil.isNotBlank(pageDto.getAccessTokenValidity()), Client::getAccessTokenValiditySeconds, pageDto.getAccessTokenValidity())
                 .eq(StrUtil.isNotBlank(pageDto.getRefreshTokenValidity()), Client::getRefreshTokenValiditySeconds, pageDto.getRefreshTokenValidity())
                 .eq(StrUtil.isNotBlank(pageDto.getAdditionalInformation()), Client::getAdditionalInformation, pageDto.getAdditionalInformation())
-                .eq(StrUtil.isNotBlank(pageDto.getAutoApprove()), Client::getAutoApprove, pageDto.getAutoApprove());
+                .eq(StrUtil.isNotBlank(pageDto.getAutoapprove()), Client::getAutoapprove, pageDto.getAutoapprove());
         page = baseMapper.selectPage(page,lambdaQueryWrapper);
         return SimplePage.toPageResult(page);
     }

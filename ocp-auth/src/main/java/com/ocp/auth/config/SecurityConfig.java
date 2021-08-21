@@ -3,7 +3,6 @@ package com.ocp.auth.config;
 import com.ocp.auth.filter.LoginProcessSetTenantFilter;
 import com.ocp.auth.filter.TenantUserPwdAuthenticationFilter;
 import com.ocp.auth.provider.*;
-import com.ocp.common.config.DefaultPasswordConfig;
 import com.ocp.common.constant.EndpointConstant;
 import com.ocp.common.constant.SecurityConstants;
 import com.ocp.common.properties.TenantProperties;
@@ -11,7 +10,6 @@ import com.ocp.common.security.token.CustomWebAuthenticationDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,7 +35,6 @@ import javax.servlet.http.HttpSession;
  * blog: http://blog.kongyin.ltd
  */
 @Configuration
-@Import(DefaultPasswordConfig.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -125,12 +122,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/plugins/**", "/favicon.ico");
+        web.ignoring().antMatchers("/resource/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().permitAll()//授权服务器关闭basic认证
+        http.authorizeRequests().antMatchers(EndpointConstant.OAUTH_ALL,EndpointConstant.LOGIN).permitAll()//除授权相关path拦截所有请求
+                .antMatchers("/**").authenticated()//要使用antMatchers("/**")不能使用 anyRequest 会屏蔽静态资源
                 .and().logout().logoutUrl(EndpointConstant.LOGOUT_URL)
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .addLogoutHandler(logoutHandler).clearAuthentication(true)
@@ -139,10 +137,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         if (tenantProperties.getEnable()) {
             //解决不同租户单点登录时角色没变化
-            http.formLogin().loginPage(EndpointConstant.LOGIN_PAGE).and()
+            http.formLogin().loginPage(EndpointConstant.LOGIN).and()
                     .addFilterAt(tenantAuthenticationFilter(authenticationManagerBean()), UsernamePasswordAuthenticationFilter.class);
         } else {
-            http.formLogin().loginPage(EndpointConstant.LOGIN_PAGE)
+            http.formLogin().loginPage(EndpointConstant.LOGIN)
                     .loginProcessingUrl(EndpointConstant.OAUTH_LOGIN_PRO_URL)
                     .successHandler(authenticationSuccessHandler)
                     .failureHandler(authenticationFailureHandler)
