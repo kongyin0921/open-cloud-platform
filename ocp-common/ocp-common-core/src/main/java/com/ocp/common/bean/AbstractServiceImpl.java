@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2021/08/07 20:00
  * blog: http://blog.kongyin.ltd
  */
-public abstract class AbstractServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements ISuperService<T> {
+public abstract class AbstractServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements IBaseService<T> {
     @Override
     public boolean saveIdempotency(T entity, DistributedLock locker, String lockKey, Wrapper<T> countWrapper, String msg) throws Exception {
         if (locker == null) {

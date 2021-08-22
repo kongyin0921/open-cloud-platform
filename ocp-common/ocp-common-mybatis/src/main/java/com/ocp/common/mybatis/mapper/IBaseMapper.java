@@ -8,6 +8,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @date 2021/08/08 10:45
  * blog: http://blog.kongyin.ltd
  */
-public interface SuperMapper<T> extends BaseMapper<T> {
+public interface IBaseMapper<T> extends BaseMapper<T> {
     // 这里可以放一些公共的方法
 }

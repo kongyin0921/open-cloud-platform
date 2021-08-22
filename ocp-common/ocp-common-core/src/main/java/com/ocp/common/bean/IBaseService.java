@@ -10,7 +10,7 @@ import com.ocp.common.lock.DistributedLock;
  * @date 2021/08/07 19:59
  * blog: http://blog.kongyin.ltd
  */
-public interface ISuperService<T> extends IService<T> {
+public interface IBaseService<T> extends IService<T> {
     /**
      * 幂等性新增记录
      * 例子如下：

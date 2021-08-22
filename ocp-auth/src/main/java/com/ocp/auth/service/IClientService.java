@@ -2,7 +2,7 @@ package com.ocp.auth.service;
 
 import com.ocp.auth.entity.Client;
 import com.ocp.auth.entity.dto.ClientQueryPageDto;
-import com.ocp.common.bean.ISuperService;
+import com.ocp.common.bean.IBaseService;
 import com.ocp.common.bean.PageInfo;
 
 /**
@@ -10,7 +10,7 @@ import com.ocp.common.bean.PageInfo;
  * @date 2021/08/12 21:49
  * blog: http://blog.kongyin.ltd
  */
-public interface IClientService extends ISuperService<Client> {
+public interface IClientService extends IBaseService<Client> {
     /**
      * 查询应用列表
      * @param pageDto
