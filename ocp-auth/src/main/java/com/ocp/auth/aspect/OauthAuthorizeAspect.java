@@ -3,7 +3,7 @@ package com.ocp.auth.aspect;
 import com.ocp.auth.provider.token.TenantUserPwdAuthenticationToken;
 import com.ocp.auth.service.factory.UserDetailServiceFactory;
 import com.ocp.common.context.TenantContextHolder;
-import com.ocp.common.security.userdetails.LoginAppUser;
+import com.ocp.common.security.userdetails.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -47,7 +47,7 @@ public class OauthAuthorizeAspect {
                 try {
                     TenantContextHolder.setTenant(requestClientId);
                     //重新查询对应该租户的角色等信息
-                    LoginAppUser user = (LoginAppUser)userDetailsServiceFactory.getService(tenantToken).loadUserByUsername(tenantToken.getName());
+                    LoginUser user = (LoginUser)userDetailsServiceFactory.getService(tenantToken).loadUserByUsername(tenantToken.getName());
                     tenantToken = new TenantUserPwdAuthenticationToken(user, tenantToken.getCredentials(), user.getAuthorities(), requestClientId);
                     tenantToken.setDetails(details);
                     args[3] = tenantToken;

@@ -12,7 +12,7 @@ import com.ocp.common.entity.SysRole;
 import com.ocp.common.entity.SysUser;
 import com.ocp.common.exception.ServiceException;
 import com.ocp.common.lock.DistributedLock;
-import com.ocp.common.security.userdetails.LoginAppUser;
+import com.ocp.common.security.userdetails.LoginUser;
 import com.ocp.server.user.entity.SysRoleUser;
 import com.ocp.server.user.entity.SysUserExcel;
 import com.ocp.server.user.mapper.SysRoleMenuMapper;
@@ -57,44 +57,44 @@ public class SysUserServiceImpl extends AbstractServiceImpl<SysUserMapper, SysUs
     private DistributedLock lock;
 
     @Override
-    public LoginAppUser findByUsername(String username) {
+    public LoginUser findByUsername(String username) {
         SysUser sysUser = this.selectByUsername(username);
         return getLoginAppUser(sysUser);
     }
 
     @Override
-    public LoginAppUser findByOpenId(String openId) {
+    public LoginUser findByOpenId(String openId) {
         SysUser sysUser = this.selectByOpenId(openId);
         return getLoginAppUser(sysUser);
     }
 
     @Override
-    public LoginAppUser findByMobile(String mobile) {
+    public LoginUser findByMobile(String mobile) {
         SysUser sysUser = this.selectByMobile(mobile);
         return getLoginAppUser(sysUser);
     }
 
     @Override
-    public LoginAppUser getLoginAppUser(SysUser sysUser) {
+    public LoginUser getLoginAppUser(SysUser sysUser) {
         if (sysUser != null) {
-            LoginAppUser loginAppUser = new LoginAppUser();
-            BeanUtils.copyProperties(sysUser, loginAppUser);
+            LoginUser loginUser = new LoginUser();
+            BeanUtils.copyProperties(sysUser, loginUser);
 
             List<SysRole> sysRoles = roleUserService.findRolesByUserId(sysUser.getId());
             // 设置角色
-            loginAppUser.setRoles(sysRoles);
+            loginUser.setRoles(sysRoles);
 
             if (!CollectionUtils.isEmpty(sysRoles)) {
-                Set<Long> roleIds = sysRoles.parallelStream().map(AbstractEntity::getId).collect(Collectors.toSet());
+                Set<String> roleIds = sysRoles.parallelStream().map(AbstractEntity::getId).collect(Collectors.toSet());
                 List<SysMenu> menus = roleMenuMapper.findMenusByRoleIds(roleIds, CommonConstant.PERMISSION);
                 if (!CollectionUtils.isEmpty(menus)) {
                     Set<String> permissions = menus.parallelStream().map(p -> p.getPath())
                             .collect(Collectors.toSet());
                     // 设置权限集合
-                    loginAppUser.setPermissions(permissions);
+                    loginUser.setPermissions(permissions);
                 }
             }
-            return loginAppUser;
+            return loginUser;
         }
         return null;
     }
@@ -151,7 +151,7 @@ public class SysUserServiceImpl extends AbstractServiceImpl<SysUserMapper, SysUs
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void setRoleToUser(Long id, Set<Long> roleIds) {
+    public void setRoleToUser(String id, Set<String> roleIds) {
         SysUser sysUser = baseMapper.selectById(id);
         if (sysUser == null) {
             throw new IllegalArgumentException("用户不存在");
@@ -167,7 +167,7 @@ public class SysUserServiceImpl extends AbstractServiceImpl<SysUserMapper, SysUs
 
     @Transactional
     @Override
-    public void updatePassword(Long id, String oldPassword, String newPassword) {
+    public void updatePassword(String id, String oldPassword, String newPassword) {
         SysUser sysUser = baseMapper.selectById(id);
         if (StrUtil.isNotBlank(oldPassword)) {
             if (!passwordEncoder.matches(oldPassword, sysUser.getPassword())) {
@@ -199,7 +199,7 @@ public class SysUserServiceImpl extends AbstractServiceImpl<SysUserMapper, SysUs
     }*/
 
     @Override
-    public List<SysRole> findRolesByUserId(Long userId) {
+    public List<SysRole> findRolesByUserId(String userId) {
         return roleUserService.findRolesByUserId(userId);
     }
 
@@ -240,7 +240,7 @@ public class SysUserServiceImpl extends AbstractServiceImpl<SysUserMapper, SysUs
             List roleIds = Arrays.asList(sysUser.getRoleId().split(","));
             if (!CollectionUtils.isEmpty(roleIds)) {
                 List<SysRoleUser> roleUsers = new ArrayList<>(roleIds.size());
-                roleIds.forEach(roleId -> roleUsers.add(new SysRoleUser(sysUser.getId(), Long.parseLong(roleId.toString()))));
+                roleIds.forEach(roleId -> roleUsers.add(new SysRoleUser(sysUser.getId(), roleId.toString())));
                 roleUserService.saveBatch(roleUsers);
             }
         }
@@ -248,7 +248,7 @@ public class SysUserServiceImpl extends AbstractServiceImpl<SysUserMapper, SysUs
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean delUser(Long id) {
+    public boolean delUser(String id) {
         roleUserService.deleteUserRole(id, null);
         return baseMapper.deleteById(id) > 0;
     }

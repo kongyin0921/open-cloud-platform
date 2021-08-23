@@ -1,15 +1,14 @@
 package com.ocp.common.mybatis;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.parser.ISqlParserFilter;
-import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
-import com.ocp.common.mybatis.config.DateMetaObjectHandler;
+import com.ocp.common.context.ContextUserDetails;
+import com.ocp.common.context.UserDetailsContextHolder;
+import com.ocp.common.mybatis.config.AbstractBaseMetaObjectHandler;
 import com.ocp.common.mybatis.properties.MybatisPlusAutoFillProperties;
 import com.ocp.common.mybatis.resolver.SqlFilterArgumentResolver;
 import com.ocp.common.properties.TenantProperties;
@@ -33,6 +32,12 @@ import java.util.List;
 @Configuration(proxyBeanMethods=false)
 @EnableConfigurationProperties(MybatisPlusAutoFillProperties.class)
 public class MybatisPlusAutoConfigure implements WebMvcConfigurer {
+
+    /**
+     * 默认操作用户ID
+     */
+    private final String DEFAULT_OPERATION_USER_ID = "111111";
+
     @Autowired
     private TenantHandler tenantHandler;
 
@@ -52,6 +57,8 @@ public class MybatisPlusAutoConfigure implements WebMvcConfigurer {
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new SqlFilterArgumentResolver());
     }
+
+
 
     /**
      * 分页插件, 对于单一数据库类型来说,都建议配置该值,避免每次分页都去抓取数据库类型
@@ -84,6 +91,12 @@ public class MybatisPlusAutoConfigure implements WebMvcConfigurer {
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = "ocp.mybatis-plus.auto-fill", name = "enabled", havingValue = "true", matchIfMissing = true)
     public MetaObjectHandler metaObjectHandler() {
-        return new DateMetaObjectHandler(autoFillProperties);
+        return new AbstractBaseMetaObjectHandler(autoFillProperties) {
+            @Override
+            public String getOperatorId() {
+                ContextUserDetails contextUserDetails = UserDetailsContextHolder.getContextUserDetails(true);
+                return contextUserDetails != null ? contextUserDetails.getId() : DEFAULT_OPERATION_USER_ID;
+            }
+        };
     }
 }

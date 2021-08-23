@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Slf4j
 public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
-    private UserService userService;
+    private final UserService userService;
 
     public TokenArgumentResolver(UserService userService) {
         this.userService = userService;
@@ -72,7 +72,7 @@ public class TokenArgumentResolver implements HandlerMethodArgumentResolver {
             user = userService.selectByUsername(username);
         } else {
             user = new SysUser();
-            user.setId(Long.valueOf(userId));
+            user.setId(userId);
             user.setUsername(username);
         }
         List<SysRole> sysRoleList = new ArrayList<>();

@@ -22,4 +22,9 @@ public interface ParameterConstants {
      * 日志链路追踪id日志标志
      */
     String LOG_TRACE_ID = "traceId";
+
+    /**
+     * 用户id参数
+     */
+    String USER_ID_PARAM = "userId";
 }

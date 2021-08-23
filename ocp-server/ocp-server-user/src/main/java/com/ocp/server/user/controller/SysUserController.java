@@ -2,7 +2,7 @@ package com.ocp.server.user.controller;
 
 import com.ocp.common.entity.SysRole;
 import com.ocp.common.entity.SysUser;
-import com.ocp.common.security.userdetails.LoginAppUser;
+import com.ocp.common.security.userdetails.LoginUser;
 import com.ocp.server.user.service.ISysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -55,7 +55,7 @@ public class SysUserController {
      */
     @GetMapping(value = "/users-anon/login", params = "username")
     @ApiOperation(value = "根据用户名查询用户")
-    public LoginAppUser findByUsername(String username) {
+    public LoginUser findByUsername(String username) {
         return appUserService.findByUsername(username);
     }
 
@@ -105,7 +105,7 @@ public class SysUserController {
      * @param roleIds
      */
     @PostMapping("/users/{id}/roles")
-    public void setRoleToUser(@PathVariable Long id, @RequestBody Set<Long> roleIds) {
+    public void setRoleToUser(@PathVariable String id, @RequestBody Set<String> roleIds) {
         appUserService.setRoleToUser(id, roleIds);
     }
 
@@ -116,7 +116,7 @@ public class SysUserController {
      * @return
      */
     @GetMapping("/users/{id}/roles")
-    public List<SysRole> findRolesByUserId(@PathVariable Long id) {
+    public List<SysRole> findRolesByUserId(@PathVariable String id) {
         return appUserService.findRolesByUserId(id);
     }
 }

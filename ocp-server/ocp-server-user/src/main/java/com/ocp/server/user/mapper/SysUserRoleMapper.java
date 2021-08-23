@@ -17,10 +17,10 @@ import java.util.List;
  */
 @Mapper
 public interface SysUserRoleMapper extends IBaseMapper<SysRoleUser> {
-    int deleteUserRole(@Param("userId") Long userId, @Param("roleId") Long roleId);
+    int deleteUserRole(@Param("userId") String userId, @Param("roleId") String roleId);
 
     @Insert("insert into sys_role_user(user_id, role_id) values(#{userId}, #{roleId})")
-    int saveUserRoles(@Param("userId") Long userId, @Param("roleId") Long roleId);
+    int saveUserRoles(@Param("userId") String userId, @Param("roleId") String roleId);
 
     /**
      * 根据用户id获取角色
@@ -28,7 +28,7 @@ public interface SysUserRoleMapper extends IBaseMapper<SysRoleUser> {
      * @param userId
      * @return
      */
-    List<SysRole> findRolesByUserId(@Param("userId") Long userId);
+    List<SysRole> findRolesByUserId(@Param("userId") String userId);
 
     /**
      * 根据用户ids 获取

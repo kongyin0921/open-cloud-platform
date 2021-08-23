@@ -20,16 +20,45 @@ import java.util.List;
 @TableName("sys_user")
 public class SysUser extends AbstractEntity<SysUser> {
     private static final long serialVersionUID = -5886012896705137070L;
-
+    /**
+     * 用户名称
+     */
     private String username;
+    /**
+     * 密码
+     */
     private String password;
+    /**
+     * 昵称
+     */
     private String nickname;
+    /**
+     * 图片地址
+     */
     private String headImgUrl;
+    /**
+     * 手机
+     */
     private String mobile;
+    /**
+     * 性别
+     */
     private Integer sex;
+    /**
+     * 是否启用
+     */
     private Boolean enabled;
+    /**
+     * 类型
+     */
     private String type;
+    /**
+     * 第三方 id
+     */
     private String openId;
+    /**
+     * 是否删除
+     */
     @TableLogic
     private boolean isDel;
 

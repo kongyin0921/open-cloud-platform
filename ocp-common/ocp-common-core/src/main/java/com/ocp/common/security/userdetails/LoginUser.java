@@ -14,15 +14,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 用户实体绑定spring security
+ * 登录用户信息绑定spring security
  * @author kong
  * @date 2021/07/31 14:14
  * blog: http://blog.kongyin.ltd
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class LoginAppUser extends SysUser implements SocialUserDetails {
-    private static final long serialVersionUID = -3685249101751401211L;
+public class LoginUser extends SysUser implements SocialUserDetails {
+    private static final long serialVersionUID = 8320591308704989810L;
 
     private Set<String> permissions;
 

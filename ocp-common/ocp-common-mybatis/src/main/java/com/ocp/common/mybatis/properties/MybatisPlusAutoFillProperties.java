@@ -27,11 +27,23 @@ public class MybatisPlusAutoFillProperties {
      */
     private Boolean enableUpdateFill = true;
     /**
+     * 创建人 字段名
+     */
+    private String createByField = "createBy";
+    /**
      * 创建时间字段名
      */
     private String createTimeField = "createTime";
     /**
+     * 更新人 字段名
+     */
+    private String updateByField = "updateBy";
+    /**
      * 更新时间字段名
      */
     private String updateTimeField = "updateTime";
+    /**
+     * 最后修改时间
+     */
+    private String lastModifyField = "lastModify";
 }

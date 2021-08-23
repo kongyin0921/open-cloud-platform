@@ -9,9 +9,9 @@ import java.util.List;
 
 
 public interface ISysRoleUserService extends IBaseService<SysRoleUser> {
-	int deleteUserRole(Long userId, Long roleId);
+	int deleteUserRole(String userId, String roleId);
 
-	int saveUserRoles(Long userId, Long roleId);
+	int saveUserRoles(String userId, String roleId);
 
 	/**
 	 * 根据用户id获取角色
@@ -19,7 +19,7 @@ public interface ISysRoleUserService extends IBaseService<SysRoleUser> {
 	 * @param userId
 	 * @return
 	 */
-	List<SysRole> findRolesByUserId(Long userId);
+	List<SysRole> findRolesByUserId(String userId);
 
 	/**
 	 * 根据用户ids 获取

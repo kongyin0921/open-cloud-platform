@@ -12,6 +12,6 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_role_user")
 public class SysRoleUser extends Model<SysRoleUser> {
-	private Long userId;
-	private Long roleId;
+	private String userId;
+	private String roleId;
 }

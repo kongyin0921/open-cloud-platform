@@ -1,6 +1,6 @@
 package com.ocp.common.security.converter;
 
-import com.ocp.common.security.userdetails.LoginAppUser;
+import com.ocp.common.security.userdetails.LoginUser;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -67,10 +67,10 @@ public class CustomUserAuthenticationConverter implements UserAuthenticationConv
                 authorities = user.getAuthorities();
                 principal = user;
             } else {
-                Integer id = (Integer)map.get("id");
-                LoginAppUser user = new LoginAppUser();
+                String id = map.get("id").toString();
+                LoginUser user = new LoginUser();
                 user.setUsername((String)principal);
-                user.setId(Long.valueOf(id));
+                user.setId(id);
                 principal = user;
             }
             return new UsernamePasswordAuthenticationToken(principal, "N/A", authorities);

@@ -21,17 +21,17 @@ public class SysRoleUserServiceImpl extends AbstractServiceImpl<SysUserRoleMappe
     private SysUserRoleMapper sysUserRoleMapper;
 
     @Override
-    public int deleteUserRole(Long userId, Long roleId) {
+    public int deleteUserRole(String userId, String roleId) {
         return sysUserRoleMapper.deleteUserRole(userId, roleId);
     }
 
     @Override
-    public int saveUserRoles(Long userId, Long roleId) {
+    public int saveUserRoles(String userId, String roleId) {
         return sysUserRoleMapper.saveUserRoles(userId, roleId);
     }
 
     @Override
-    public List<SysRole> findRolesByUserId(Long userId) {
+    public List<SysRole> findRolesByUserId(String userId) {
         return sysUserRoleMapper.findRolesByUserId(userId);
     }
 

@@ -3,7 +3,7 @@ package com.ocp.auth.service.Impl;
 import com.ocp.auth.service.AuthUserDetailsService;
 import com.ocp.common.constant.SecurityConstants;
 import com.ocp.common.feign.UserService;
-import com.ocp.common.security.userdetails.LoginAppUser;
+import com.ocp.common.security.userdetails.LoginUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -34,29 +34,29 @@ public class UserDetailServiceImpl implements AuthUserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        LoginAppUser loginAppUser = userService.findByUsername(username);
-        if (loginAppUser == null) {
+        LoginUser loginUser = userService.findByUsername(username);
+        if (loginUser == null) {
             throw new InternalAuthenticationServiceException("用户名或密码错误");
         }
-        return checkUser(loginAppUser);
+        return checkUser(loginUser);
     }
 
     @Override
     public SocialUserDetails loadUserByOpenId(String openId) {
-        LoginAppUser loginAppUser = userService.findByOpenId(openId);
-        return checkUser(loginAppUser);
+        LoginUser loginUser = userService.findByOpenId(openId);
+        return checkUser(loginUser);
     }
 
     @Override
     public UserDetails loadUserByMobile(String mobile) {
-        LoginAppUser loginAppUser = userService.findByMobile(mobile);
-        return checkUser(loginAppUser);
+        LoginUser loginUser = userService.findByMobile(mobile);
+        return checkUser(loginUser);
     }
 
-    private LoginAppUser checkUser(LoginAppUser loginAppUser) {
-        if (loginAppUser != null && !loginAppUser.isEnabled()) {
+    private LoginUser checkUser(LoginUser loginUser) {
+        if (loginUser != null && !loginUser.isEnabled()) {
             throw new DisabledException("用户已作废");
         }
-        return loginAppUser;
+        return loginUser;
     }
 }

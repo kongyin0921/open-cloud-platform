@@ -2,7 +2,7 @@ package com.ocp.common.feign.fallback;
 
 import com.ocp.common.feign.UserService;
 import com.ocp.common.entity.SysUser;
-import com.ocp.common.security.userdetails.LoginAppUser;
+import com.ocp.common.security.userdetails.LoginUser;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,21 +23,21 @@ public class UserServiceFallbackFactory  implements FallbackFactory<UserService>
             }
 
             @Override
-            public LoginAppUser findByUsername(String username) {
+            public LoginUser findByUsername(String username) {
                 log.error("通过用户名查询用户异常:{}", username, throwable);
-                return new LoginAppUser();
+                return new LoginUser();
             }
 
             @Override
-            public LoginAppUser findByMobile(String mobile) {
+            public LoginUser findByMobile(String mobile) {
                 log.error("通过手机号查询用户异常:{}", mobile, throwable);
-                return new LoginAppUser();
+                return new LoginUser();
             }
 
             @Override
-            public LoginAppUser findByOpenId(String openId) {
+            public LoginUser findByOpenId(String openId) {
                 log.error("通过openId查询用户异常:{}", openId, throwable);
-                return new LoginAppUser();
+                return new LoginUser();
             }
         };
     }

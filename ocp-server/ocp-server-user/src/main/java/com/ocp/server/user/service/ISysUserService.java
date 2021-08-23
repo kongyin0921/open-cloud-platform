@@ -4,7 +4,7 @@ package com.ocp.server.user.service;
 import com.ocp.common.bean.IBaseService;
 import com.ocp.common.entity.SysRole;
 import com.ocp.common.entity.SysUser;
-import com.ocp.common.security.userdetails.LoginAppUser;
+import com.ocp.common.security.userdetails.LoginUser;
 import com.ocp.server.user.entity.SysUserExcel;
 
 import java.util.List;
@@ -18,18 +18,18 @@ public interface ISysUserService extends IBaseService<SysUser> {
 	 * @param username
 	 * @return
 	 */
-	LoginAppUser findByUsername(String username);
+	LoginUser findByUsername(String username);
 
-	LoginAppUser findByOpenId(String openId);
+	LoginUser findByOpenId(String openId);
 
-	LoginAppUser findByMobile(String mobile);
+	LoginUser findByMobile(String mobile);
 
 	/**
 	 * 通过SysUser 转换为 LoginAppUser，把roles和permissions也查询出来
 	 * @param sysUser
 	 * @return
 	 */
-	LoginAppUser getLoginAppUser(SysUser sysUser);
+	LoginUser getLoginAppUser(SysUser sysUser);
 
 	/**
 	 * 根据用户名查询用户
@@ -55,7 +55,7 @@ public interface ISysUserService extends IBaseService<SysUser> {
 	 * @param id
 	 * @param roleIds
 	 */
-	void setRoleToUser(Long id, Set<Long> roleIds);
+	void setRoleToUser(String id, Set<String> roleIds);
 
 	/**
 	 * 更新密码
@@ -64,7 +64,7 @@ public interface ISysUserService extends IBaseService<SysUser> {
 	 * @param newPassword
 	 * @return
 	 */
-	void updatePassword(Long id, String oldPassword, String newPassword);
+	void updatePassword(String id, String oldPassword, String newPassword);
 
 	/**
 	 * 用户列表
@@ -79,7 +79,7 @@ public interface ISysUserService extends IBaseService<SysUser> {
 	 * @param userId
 	 * @return
 	 */
-	List<SysRole> findRolesByUserId(Long userId);
+	List<SysRole> findRolesByUserId(String userId);
 
 	/**
 	 * 状态变更
@@ -100,5 +100,5 @@ public interface ISysUserService extends IBaseService<SysUser> {
 	/**
 	 * 删除用户
 	 */
-	boolean delUser(Long id);
+	boolean delUser(String id);
 }
