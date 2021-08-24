@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 
 /**
  * @author kong
- * @date 2021/08/20 21:34
+ * @date 2021/08/24 21:55
  * blog: http://blog.kongyin.ltd
  */
 public class CustomAuthenticationManager implements ReactiveAuthenticationManager {
@@ -23,8 +23,7 @@ public class CustomAuthenticationManager implements ReactiveAuthenticationManage
 
     @Override
     public Mono<Authentication> authenticate(Authentication authentication) {
-        return Mono.justOrEmpty(authentication)
-                .filter(a -> a instanceof BearerTokenAuthenticationToken)
+        return Mono.justOrEmpty(authentication).filter(a -> a instanceof BearerTokenAuthenticationToken)
                 .cast(BearerTokenAuthenticationToken.class).map(BearerTokenAuthenticationToken::getToken)
                 .flatMap(accessTokenValue -> {
                     OAuth2AccessToken accessToken = tokenStore.readAccessToken(accessTokenValue);
