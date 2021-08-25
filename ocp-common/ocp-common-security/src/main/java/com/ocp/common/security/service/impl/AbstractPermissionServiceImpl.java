@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * blog: http://blog.kongyin.ltd
  */
 @Slf4j
-public abstract class DefaultPermissionServiceImpl {
+public abstract class AbstractPermissionServiceImpl {
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -41,6 +41,13 @@ public abstract class DefaultPermissionServiceImpl {
      */
     public abstract List<SysMenu> findMenuByRoleCodes(String roleCodes);
 
+    /**
+     * 是否有权限
+     * @param authentication
+     * @param requestMethod
+     * @param requestURI
+     * @return
+     */
     public boolean hasPermission(Authentication authentication, String requestMethod, String requestURI) {
         // 前端跨域OPTIONS请求预检放行 也可通过前端配置代理实现
         if (HttpMethod.OPTIONS.name().equalsIgnoreCase(requestMethod)) {

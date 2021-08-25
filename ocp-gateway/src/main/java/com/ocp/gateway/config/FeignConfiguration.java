@@ -21,7 +21,7 @@ import java.util.List;
  * blog: http://blog.kongyin.ltd
  */
 @Configuration
-public class FeignConfig {
+public class FeignConfiguration {
 
     @Bean
     public Decoder feignDecoder() {
