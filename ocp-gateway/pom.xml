@@ -16,6 +16,11 @@
 
         <dependency>
             <groupId>com.open</groupId>
+            <artifactId>ocp-common-log</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.open</groupId>
             <artifactId>ocp-common-feign</artifactId>
         </dependency>
 
@@ -77,6 +82,16 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>eu.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
     </dependencies>
 </project>
