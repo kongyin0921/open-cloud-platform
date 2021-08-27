@@ -7,56 +7,56 @@ spring:
           enabled: true
       routes:
         - id: auth
-          uri: lb://uaa-server
+          uri: lb://auth-server
           predicates:
-            - Path=/api-uaa/**
+            - Path=/api-auth/**
           filters:
             - StripPrefix=1
             - PreserveHostHeader
         - id: auth-login-page
-          uri: lb://uaa-server
+          uri: lb://auth-server
           predicates:
             - Path=/login.html
           filters:
             - PreserveHostHeader
         - id: auth-login-process
-          uri: lb://uaa-server
+          uri: lb://auth-server
           predicates:
             - Path=/user/login
           filters:
             - PreserveHostHeader
         - id: auth-login-token
-          uri: lb://uaa-server
+          uri: lb://auth-server
           predicates:
             - Path=/oauth/token
           filters:
             - PreserveHostHeader
         - id: auth-login-authorize
-          uri: lb://uaa-server
+          uri: lb://auth-server
           predicates:
             - Path=/oauth/authorize
           filters:
             - PreserveHostHeader
         - id: auth-check-process
-          uri: lb://uaa-server
+          uri: lb://auth-server
           predicates:
             - Path=/oauth/check_token
           filters:
             - PreserveHostHeader
         - id: user
-          uri: lb://user-center
+          uri: lb://user-server
           predicates:
             - Path=/api-user/**
           filters:
             - StripPrefix=1
         - id: file
-          uri: lb://file-center
+          uri: lb://file-server
           predicates:
             - Path=/api-file/**
           filters:
             - StripPrefix=1
         - id: log
-          uri: lb://log-center
+          uri: lb://log-server
           predicates:
             - Path=/api-log/**
           filters:
@@ -68,7 +68,7 @@ spring:
           filters:
             - StripPrefix=1
         - id: search
-          uri: lb://search-center
+          uri: lb://search-server
           predicates:
             - Path=/api-search/**
           filters:
@@ -93,14 +93,13 @@ ocp:
     ignore:
       # 忽略认证的地址
       httpUrls: >
-        /api-uaa/oauth/**,
-        /api-uaa/validata/**,
-        /api-uaa/css/**,
-        /api-uaa/images/**,
-        /api-uaa/js/**,
+        /api-auth/oauth/**,
+        /api-auth/css/**,
+        /api-auth/images/**,
+        /api-auth/js/**,
         /login.html,
         /user/login,
-        /api-uaa/tokens/key
+        /api-auth/tokens/key
     auth:
       urlPermission:
         #是否开启url级别权限
