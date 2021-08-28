@@ -25,6 +25,7 @@
         <module>ocp-common-feign</module>
         <module>ocp-common-sentinel</module>
         <module>ocp-common-swagger2</module>
+        <module>ocp-common-search</module>
     </modules>
 
 
