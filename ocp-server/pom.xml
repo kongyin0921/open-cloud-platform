@@ -16,6 +16,8 @@
     <modules>
         <!--用户服务-->
         <module>ocp-server-user</module>
+        <!--搜索服务-->
+        <module>ocp-server-search</module>
     </modules>
 
 </project>

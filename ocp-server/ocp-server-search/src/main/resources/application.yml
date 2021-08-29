@@ -1,0 +1,16 @@
+spring:
+  elasticsearch:
+    rest:
+      uris: ${zlt.elasticsearch.uris:127.0.0.1:9000}
+      username: ${zlt.elasticsearch.username:root}
+      password: ${zlt.elasticsearch.password:123}
+
+ocp:
+  indices:
+    show: sys-log-*,mysql-slowlog-*,sys_user,point-log-*,audit-log-*
+  swagger:
+    enabled: true
+    title: 搜索服务
+    description: 搜索服务接口文档
+    version: 1.0
+    base-package: com.ocp.server.search.controller

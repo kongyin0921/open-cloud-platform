@@ -81,6 +81,18 @@
                 <artifactId>ocp-common-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.open</groupId>
+                <artifactId>ocp-common-search</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.open</groupId>
+                <artifactId>ocp-common-elasticsearch</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
