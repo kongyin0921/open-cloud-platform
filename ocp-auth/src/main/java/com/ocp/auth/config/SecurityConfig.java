@@ -127,8 +127,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers(EndpointConstant.OAUTH_ALL,EndpointConstant.LOGIN).permitAll()//除授权相关path拦截所有请求
-                .antMatchers("/**").authenticated()//要使用antMatchers("/**")不能使用 anyRequest 会屏蔽静态资源
+        http.authorizeRequests().anyRequest().permitAll()//要使用antMatchers("/**")不能使用 anyRequest 会屏蔽静态资源
                 .and().logout().logoutUrl(EndpointConstant.LOGOUT_URL)
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .addLogoutHandler(logoutHandler).clearAuthentication(true)
